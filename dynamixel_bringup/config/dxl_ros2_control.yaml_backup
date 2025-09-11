@@ -1,0 +1,54 @@
+ros2_control:
+  ros__parameters:
+    hardware:
+      - name: typea
+        type: dynamixel_hardware_interface/DynamixelHardware
+        port_name: "/dev/ttyUSB0"
+        baud_rate: "57600"
+        number_of_joints: "18"
+        joints:
+          - id: "2"
+            name: "r_shoulder_swing_joint"
+          - id: "3"
+            name: "r_shoulder_lateral_joint"
+          - id: "4"
+            name: "r_elbow_joint"
+          - id: "6"
+            name: "l_shoulder_swing_joint"
+          - id: "7"
+            name: "l_shoulder_lateral_joint"
+          - id: "8"
+            name: "l_elbow_joint"
+
+    controller_manager:
+      ros__parameters:
+        update_rate: 50
+        joint_state_broadcaster:
+          type: joint_state_broadcaster/JointStateBroadcaster
+        joint_trajectory_controller:
+          type: joint_trajectory_controller/JointTrajectoryController
+          joints:
+            - "r_shoulder_swing_joint"
+            - "r_shoulder_lateral_joint"
+            - "r_elbow_joint"
+            - "l_shoulder_swing_joint"
+            - "l_shoulder_lateral_joint"
+            - "l_elbow_joint"
+            - "r_hip_twist_joint"
+            - "r_hip_lateral_joint"
+            - "r_hip_swing_joint"
+            - "r_knee_joint"
+            - "r_ankle_swing_joint"
+            - "r_ankle_lateral_joint"
+            - "l_hip_twist_joint"
+            - "l_hip_lateral_joint"
+            - "l_hip_swing_joint"
+            - "l_knee_joint"
+            - "l_ankle_swing_joint"
+            - "l_ankle_lateral_joint"
+          command_interfaces:
+            - position
+          state_interfaces:
+            - position
+            - velocity
+            - effort
