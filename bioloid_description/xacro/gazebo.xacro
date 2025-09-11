@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!-- gazebo_ros_control plugin for URDF -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/typea</robotNamespace>
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+            <legacyModeNS>true</legacyModeNS>
+        </plugin>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+            <alwaysOn>true</alwaysOn>
+            <bodyName>imu_link</bodyName>
+            <topicName>/typea/imu</topicName>
+            <serviceName>imu_service</serviceName>
+            <gaussianNoise>0.0</gaussianNoise>
+            <updateRate>30.0</updateRate>
+            <visualize>true</visualize>
+        </plugin>
+    </gazebo>
+
+    <!-- Right and Left Contact Sensors -->
+    <gazebo reference="l_contact_sensor_link">
+        <sensor name="footl_contact_sensor" type="contact">
+            <always_on>true</always_on>
+            <update_rate>30</update_rate>
+            <contact>
+                <collision>l_ankle_lateral_link_fixed_joint_lump__l_contact_sensor_link_collision_2</collision>
+            </contact>
+            <plugin name="gazebo_ros_bumper_l_controller" filename="libgazebo_ros_bumper.so">
+                <bumperTopicName>/typea/footl_contact_sensor_state</bumperTopicName>
+                <frameName>l_contact_sensor_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+    <gazebo reference="r_contact_sensor_link">
+        <sensor name="footr_contact_sensor" type="contact">
+            <always_on>true</always_on>
+            <update_rate>30</update_rate>
+            <contact>
+                <collision>r_ankle_lateral_link_fixed_joint_lump__r_contact_sensor_link_collision_2</collision>
+            </contact>
+            <plugin name="gazebo_ros_bumper_r_controller" filename="libgazebo_ros_bumper.so">
+                <bumperTopicName>/typea/footr_contact_sensor_state</bumperTopicName>
+                <frameName>r_contact_sensor_link</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!-- Ground Truth Pose -->
+    <gazebo>
+        <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>30.0</updateRate>
+            <bodyName>base_link</bodyName>
+            <topicName>/typea/odom</topicName>
+            <gaussianNoise>0.0</gaussianNoise>
+            <frameName>world</frameName>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+    </gazebo>
+
+    <xacro:macro name="shoulder_swing_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_shoulder_swing_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_shoulder_swing_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_shoulder_swing_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="shoulder_lateral_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_shoulder_lateral_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_shoulder_lateral_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_shoulder_lateral_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="elbow_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_elbow_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_elbow_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_elbow_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="hip_twist_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_hip_twist_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_hip_twist_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_hip_twist_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="hip_lateral_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_hip_lateral_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_hip_lateral_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_hip_lateral_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="hip_swing_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_hip_swing_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_hip_swing_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_hip_swing_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="knee_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_knee_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_knee_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_knee_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="ankle_swing_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_ankle_swing_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_ankle_swing_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_ankle_swing_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+    <xacro:macro name="ankle_lateral_joint_gazebo" params="prefix">
+        <transmission name="${prefix}_ankle_lateral_joint_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_ankle_lateral_joint">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_ankle_lateral_joint_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:shoulder_swing_joint_gazebo prefix="r"/>
+    <xacro:shoulder_swing_joint_gazebo prefix="l"/>
+    <xacro:shoulder_lateral_joint_gazebo prefix="r"/>
+    <xacro:shoulder_lateral_joint_gazebo prefix="l"/>
+    <xacro:elbow_joint_gazebo prefix="r"/>
+    <xacro:elbow_joint_gazebo prefix="l"/>
+    <xacro:hip_twist_joint_gazebo prefix="r"/>
+    <xacro:hip_twist_joint_gazebo prefix="l"/>
+    <xacro:hip_lateral_joint_gazebo prefix="r"/>
+    <xacro:hip_lateral_joint_gazebo prefix="l"/>
+    <xacro:hip_swing_joint_gazebo prefix="r"/>
+    <xacro:hip_swing_joint_gazebo prefix="l"/>
+    <xacro:knee_joint_gazebo prefix="r"/>
+    <xacro:knee_joint_gazebo prefix="l"/>
+    <xacro:ankle_swing_joint_gazebo prefix="r"/>
+    <xacro:ankle_swing_joint_gazebo prefix="l"/>
+    <xacro:ankle_lateral_joint_gazebo prefix="r"/>
+    <xacro:ankle_lateral_joint_gazebo prefix="l"/>
+
+</robot>
