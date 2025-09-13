@@ -10,22 +10,22 @@ class SingleJointTest(Node):
         # Joint names MUST match the controller config exactly (order too!)
         self.joint_names = [
             "r_shoulder_swing_joint",
-            "r_shoulder_lateral_joint",
-            "r_elbow_joint",
             "l_shoulder_swing_joint",
+            "r_shoulder_lateral_joint",
             "l_shoulder_lateral_joint",
+            "r_elbow_joint",
             "l_elbow_joint",
             "r_hip_twist_joint",
-            "r_hip_lateral_joint",   # <-- joint 8
-            "r_hip_swing_joint",
-            "r_knee_joint",
-            "r_ankle_swing_joint",
-            "r_ankle_lateral_joint",
-            "l_hip_twist_joint",
+            "l_hip_twist_joint",   # Joint #8
+            "r_hip_lateral_joint",   
             "l_hip_lateral_joint",
+            "r_hip_swing_joint",
             "l_hip_swing_joint",
+            "r_knee_joint",
             "l_knee_joint",
+            "r_ankle_swing_joint",
             "l_ankle_swing_joint",
+            "r_ankle_lateral_joint",
             "l_ankle_lateral_joint",
         ]
 
@@ -37,7 +37,7 @@ class SingleJointTest(Node):
         )
 
         self.neutral = [0.0] * len(self.joint_names)
-        self.test_index = 7  # index of r_hip_lateral_joint
+        self.test_index = 17 # index of joint
 
         # Start test
         self.get_logger().info("Starting single joint test (joint 8)")
@@ -52,12 +52,12 @@ class SingleJointTest(Node):
         positions = self.neutral.copy()
 
         if self.step == 0:
-            positions[self.test_index] = 0.2   # move slightly +
-            self.get_logger().info(f"Moving {self.joint_names[self.test_index]} -> +0.2 rad")
+            positions[self.test_index] = 0.2 # -0.1   # move slightly +
+            self.get_logger().info(f"Moving {self.joint_names[self.test_index]} -> {positions[self.test_index]} rad")
             point.time_from_start.sec = 2
         elif self.step == 1:
-            positions[self.test_index] = -0.2  # move slightly -
-            self.get_logger().info(f"Moving {self.joint_names[self.test_index]} -> -0.2 rad")
+            positions[self.test_index] = -0.2 # 0.4  # move slightly -
+            self.get_logger().info(f"Moving {self.joint_names[self.test_index]} -> {positions[self.test_index]} rad")
             point.time_from_start.sec = 2
         elif self.step == 2:
             positions[self.test_index] = 0.0    # back to neutral
