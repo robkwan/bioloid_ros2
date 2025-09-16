@@ -1,0 +1,48 @@
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+import os
+from ament_index_python.packages import get_package_share_directory
+
+def generate_launch_description():
+    # Get package directory
+    pkg_share = get_package_share_directory('bioloid_description')
+    
+    # Read URDF file
+    urdf_file_path = os.path.join(pkg_share, 'urdf', 'typea.urdf')
+    with open(urdf_file_path, 'r') as file:
+        robot_description_content = file.read()
+    
+    # Robot description parameter
+    robot_description = {'robot_description': robot_description_content}
+    
+    # Path to RViz config
+    rviz_config = PathJoinSubstitution([pkg_share, 'rviz', 'robot_model_gazebo.rviz'])
+    
+    return LaunchDescription([
+        # Robot State Publisher
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            name='robot_state_publisher_rviz',
+            parameters=[robot_description],
+            remappings=[('robot_description', 'robot_description_rviz')]
+        ),
+        
+        # Joint State Publisher GUI
+        #Node(
+        #    package='joint_state_publisher_gui',
+        #    executable='joint_state_publisher_gui',
+        #    name='joint_state_publisher_gui'
+        #),
+        
+        # RViz2
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config]
+        )
+    ])

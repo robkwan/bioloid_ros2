@@ -6,7 +6,7 @@
     <physics name="dart_physics" type="dart">
       <max_step_size>0.001</max_step_size>       <!-- small step for stability -->
       <real_time_factor>1.0</real_time_factor>   <!-- run in real time -->
-      <gravity>0 0 0</gravity>              <!-- normal Earth gravity -9.81-->
+      <gravity>0 0 -9.81</gravity>              <!-- normal Earth gravity -9.81-->
     </physics>
 
     <!-- Physics plugin (DART) -->

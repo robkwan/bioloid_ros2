@@ -216,7 +216,7 @@ def generate_launch_description():
         #bridge_joint_states,
         #bridge_joint_commands,
         robot_state_publisher,
-        trajectory_node
+        #trajectory_node
         #hold_node
         #joint_setter,
     ])
