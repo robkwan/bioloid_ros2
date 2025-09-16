@@ -103,22 +103,27 @@
         <box size="0.065 0.099 0.043"/>
       </geometry>
     </collision>
-    <inertial>
+    <!--inertial>
       <mass value="3.4770266466"/>
       <origin xyz="0.0162019036 0.0049844800 0.0038595353"/>
       <inertia ixx="0.9787053684" ixy="0.0543464614" ixz="-0.0262073548" iyy="0.9730952674" iyz="0.0198675713" izz="0.9352573858"/>
+    </inertial-->
+    <inertial>
+      <mass value="1.5"/>
+      <origin xyz="0.0162019036 0.0049844800 0.0038595353"/>
+      <inertia ixx="0.02" ixy="0.005" ixz="-0.002" iyy="0.02" iyz="0.002" izz="0.02"/>
     </inertial>
   </link>
 
   <!-- Add a "world" link -->
-  <link name="world"/>
+  <!--link name="world"/-->
 
   <!-- Fix the base_link to world -->
-  <joint name="fixed_base" type="fixed">
+  <!--joint name="fixed_base" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/> 
-  </joint>
+  </joint-->
 
   <!-- Base -->
   <joint name="base_to_torso_joint" type="fixed">
