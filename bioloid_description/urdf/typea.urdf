@@ -728,10 +728,10 @@
 
   <joint name="r_hip_twist_joint" type="revolute">
     <parent link="torso_link"/>
-    <origin rpy="0 3.141592653589793 1.5707963267948966" xyz="0 -0.0385 -0.0655"/>
+    <origin rpy="0 3.141592653589793 0.788" xyz="0 -0.0385 -0.0655"/>
     <axis xyz="0 0 1"/>
     <child link="r_hip_twist_link"/>
-    <limit effort="10" lower="-0.5" upper="0.5" velocity="5.6548668"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
   </joint>
   <link name="r_hip_twist_link">
     <visual>
@@ -762,10 +762,10 @@
 
   <joint name="l_hip_twist_joint" type="revolute">
     <parent link="torso_link"/>
-    <origin rpy="0 3.141592653589793 -1.5707963267948966" xyz="0 0.0385 -0.0655"/>
+    <origin rpy="0 3.141592653589793 -0.788" xyz="0 0.0385 -0.0655"/>
     <axis xyz="0 0 1"/>
     <child link="l_hip_twist_link"/>
-    <limit effort="10" lower="-0.5" upper="0.5" velocity="5.6548668"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
   </joint>
   <link name="l_hip_twist_link">
     <visual>
@@ -1571,7 +1571,6 @@
       <param name="Return Delay Time">0</param>
     </gpio-->
 
-
     <joint name="r_shoulder_lateral_joint">
       <param name="id">3</param>
       <command_interface name="position"/>
@@ -1611,7 +1610,6 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
-
     <!--gpio name="r_elbow_gpio">
       <param name="type">dxl</param>
       <param name="ID">6</param>
@@ -1645,45 +1643,16 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
-    <joint name="r_hip_lateral_joint">
-      <param name="id">9</param>
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="r_hip_swing_joint">
-      <param name="id">11</param>
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="r_knee_joint">
-      <param name="id">13</param>
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="r_ankle_swing_joint">
-      <param name="id">15</param>
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-    <joint name="r_ankle_lateral_joint">
-      <param name="id">17</param>
-      <command_interface name="position"/>
-      <state_interface name="position"/>
-      <state_interface name="velocity"/>
-      <state_interface name="effort"/>
-    </joint>
-
     <!-- Left Leg -->
     <joint name="l_hip_twist_joint">
       <param name="id">8</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_hip_lateral_joint">
+      <param name="id">9</param>
       <command_interface name="position"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
@@ -1696,8 +1665,22 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
+    <joint name="r_hip_swing_joint">
+      <param name="id">11</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
     <joint name="l_hip_swing_joint">
       <param name="id">12</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_knee_joint">
+      <param name="id">13</param>
       <command_interface name="position"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
@@ -1710,8 +1693,22 @@
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
+    <joint name="r_ankle_swing_joint">
+      <param name="id">15</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
     <joint name="l_ankle_swing_joint">
       <param name="id">16</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_ankle_lateral_joint">
+      <param name="id">17</param>
       <command_interface name="position"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
