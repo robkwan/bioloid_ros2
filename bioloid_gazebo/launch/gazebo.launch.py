@@ -34,7 +34,7 @@ def generate_launch_description():
 
     # Initial joint positions as a dictionary
     initial_joint_states = {
-        'r_shoulder_swing_joint': 1.0,
+        'r_shoulder_swing_joint': 0.0,
         'r_shoulder_lateral_joint': 0.0,
         'r_elbow_joint': 0.0,
         'l_shoulder_swing_joint': 0.0, 

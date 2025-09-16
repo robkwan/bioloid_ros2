@@ -7,9 +7,6 @@ from sensor_msgs.msg import JointState
 import math
 import time
 import threading
-import argparse
-import os
-import sys
 
 
 class AllJointsTest(Node):
@@ -75,12 +72,6 @@ class AllJointsTest(Node):
         # Define the motion sequence
         # Format: [dummy, joint1...joint18, skip7, pause_duration, pose_duration]
         self.motion_steps = []
-        
-        # Initialize motion file path (will be set later)
-        self.motion_file_path = None
-        self.motion_name = ""
-        self.compliance = []
-        self.play_param = []
 
     def joint_state_callback(self, msg):
         """
@@ -373,82 +364,21 @@ class AllJointsTest(Node):
         
         except FileNotFoundError:
             self.get_logger().error(f"Motion file not found: {file_path}")
-            raise FileNotFoundError(f"Motion file not found: {file_path}")
+            self.get_logger().error("Using default motion data...")
+            # Fallback to hardcoded data if file not found
+            self.load_default_motion()
         except Exception as e:
             self.get_logger().error(f"Error loading motion file: {e}")
-            raise Exception(f"Error loading motion file: {e}")
-
-    def load_default_motion(self):
-        """
-        Load a basic default motion if no file is provided.
-        This is a simple neutral pose.
-        """
-        self.motion_name = "default_neutral"
-        self.compliance = [0] * len(self.motion_to_joint_map)
-        self.play_param = [5000]  # Default play parameter
-        
-        # Create a single neutral step (all servos at 512 = 0 degrees)
-        neutral_step = [0]  # dummy value
-        neutral_step.extend([512] * 18)  # 18 joints at neutral position
-        neutral_step.extend([0, 0])  # skip7, pause_duration, pose_duration
-        neutral_step.extend([0.0, 2.0])  # pause=0s, hold=2s
-        
-        self.motion_steps = [neutral_step]
-        self.get_logger().info("Loaded default neutral motion")
-
-
-def parse_arguments():
-    """
-    Parse command line arguments.
-    """
-    parser = argparse.ArgumentParser(description='ROS2 Motion Controller for Bioloid Robot')
-    parser.add_argument('filename', 
-                       help='Motion filename (e.g., bow.mtn, walk.mtn)')
-    parser.add_argument('--path', 
-                       default='/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions',
-                       help='Base path to motion files directory (default: /home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions)')
-    parser.add_argument('--timeout', 
-                       type=float, 
-                       default=10.0,
-                       help='Maximum time to wait for joint positions (default: 10.0 seconds)')
-    parser.add_argument('--tolerance', 
-                       type=float, 
-                       default=0.05,
-                       help='Position tolerance in radians (default: 0.05)')
-    
-    return parser.parse_args()
-
+            self.get_logger().error("Using default motion data...")
+            self.load_default_motion()
 
 def main():
-    # Parse command line arguments
-    args = parse_arguments()
-    
-    # Construct full file path
-    motion_file_path = os.path.join(args.path, args.filename)
-    
-    # Check if file exists
-    if not os.path.isfile(motion_file_path):
-        print(f"Error: Motion file not found: {motion_file_path}")
-        print(f"Available files in {args.path}:")
-        try:
-            motion_files = [f for f in os.listdir(args.path) if f.endswith('.mtn')]
-            for f in sorted(motion_files):
-                print(f"  {f}")
-        except OSError:
-            print(f"  Could not list directory: {args.path}")
-        sys.exit(1)
-    
     rclpy.init()
     try:
         node = AllJointsTest()
         
-        # Set motion control parameters from command line
-        node.max_wait_time = args.timeout
-        node.position_tolerance = args.tolerance
-        
-        # Load the specified motion file
-        print(f"Loading motion file: {motion_file_path}")
-        node.set_motion_file(motion_file_path)
+        # Optional: Load a different motion file
+        node.set_motion_file("/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions/bow.mtn")
         
         # Print motion info
         motion_info = node.get_motion_info()
@@ -457,9 +387,7 @@ def main():
         print(f"  Steps: {motion_info['num_steps']}")
         print(f"  Compliance: {motion_info['compliance']}")
         print(f"  Play Params: {motion_info['play_param']}")
-        print(f"  File: {motion_info['file_path']}")
-        print(f"  Timeout: {args.timeout}s")
-        print(f"  Tolerance: {args.tolerance} rad\n")
+        print(f"  File: {motion_info['file_path']}\n")
         
         # Run motion sequence in a separate thread to allow ROS2 spinning
         motion_thread = threading.Thread(target=node.execute_motion_sequence)
@@ -475,7 +403,6 @@ def main():
         print("Interrupted by user")
     except Exception as e:
         print(f"Error: {e}")
-        sys.exit(1)
     finally:
         if 'node' in locals():
             node.stop_motion()
