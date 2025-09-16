@@ -31,11 +31,11 @@ def generate_launch_description():
         ),
         
         # Joint State Publisher GUI
-        Node(
-            package='joint_state_publisher_gui',
-            executable='joint_state_publisher_gui',
-            name='joint_state_publisher_gui'
-        ),
+        #Node(
+        #    package='joint_state_publisher_gui',
+        #    executable='joint_state_publisher_gui',
+        #    name='joint_state_publisher_gui'
+        #),
         
         # RViz2
         Node(

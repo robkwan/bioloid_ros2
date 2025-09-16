@@ -68,29 +68,7 @@ class AllJointsTest(Node):
         
         # Define the motion sequence
         # Format: [dummy, joint1...joint18, skip7, pause_duration, pose_duration]
-        self.motion_steps = [
-            [512, 335, 688, 279, 744, 462, 561, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 515, 512, 512, 512, 512, 512, 512, 512, 0.000, 0.296],
-            [512, 288, 735, 280, 743, 206, 817, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 512, 515, 512, 512, 512, 512, 512, 512, 512, 0.000, 0.496],
-
-            #[512] + [300] + [512]*17 + [512]*7 + [0.0, 3.0],     # Joint 1 only
-            #[512] + [512, 300] + [512]*16 + [512]*7 + [0.0, 3.0],  # Joint 2 only
-            #[512] + [512]*2 + [300] + [512]*15 + [512]*7 + [0.0, 3.0],  # Joint 3 only
-            #[512] + [512]*3 + [300] + [512]*14 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*4 + [300] + [512]*13 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*5 + [300] + [512]*12 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*6 + [300] + [512]*11 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*7 + [300] + [512]*10 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*8 + [300] + [512]*9  + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*9 + [300] + [512]*8  + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*10 + [300] + [512]*7 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*11 + [300] + [512]*6 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*12 + [300] + [512]*5 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*13 + [300] + [512]*4 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*14 + [300] + [512]*3 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*15 + [300] + [512]*2 + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*16 + [300] + [512]   + [512]*7 + [0.0, 3.0],
-            #[512] + [512]*17 + [300]           + [512]*7 + [0.0, 3.0],  # Joint 18 only
-        ]
+        self.motion_steps = []
 
     def convert_to_radians(self, servo_value: int) -> float:
         """
@@ -99,7 +77,6 @@ class AllJointsTest(Node):
         """
         degrees = ((servo_value - 512)/ 1023.0) * 300.0
         return degrees * math.pi / 180.0
-
 
     def parse_motion_step(self, step_data):
         """
@@ -193,11 +170,118 @@ class AllJointsTest(Node):
 
         self.get_logger().info("Motion sequence completed!")
 
+    def set_motion_file(self, file_path):
+        """
+        Set a new motion file path and reload motion data.
+        """
+        self.motion_file_path = file_path
+        self.load_motion_file()
+    
+    def get_motion_info(self):
+        """
+        Return dictionary with current motion information.
+        """
+        return {
+           'name': self.motion_name,
+           'compliance': self.compliance,
+           'play_param': self.play_param,
+           'num_steps': len(self.motion_steps),
+           'file_path': self.motion_file_path
+        }
+
+    def load_motion_file(self, file_path=None):
+        """
+        Load motion data from .mtn file format.
+        """
+        if file_path is None:
+            file_path = self.motion_file_path
+    
+        try:
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
+        
+            # Reset motion data
+            self.motion_name = ""
+            self.compliance = []
+            self.play_param = []
+            self.motion_steps = []
+        
+            for line in lines:
+                line = line.strip()
+            
+                # Skip empty lines and page markers
+                if not line or line == "page_begin" or line == "page_end":
+                    continue
+            
+                # Parse different line types
+                if line.startswith("name="):
+                    self.motion_name = line.split("=", 1)[1]
+                
+                elif line.startswith("compliance="):
+                    compliance_str = line.split("=", 1)[1]
+                    self.compliance = [int(x) for x in compliance_str.split()]
+                
+                elif line.startswith("play_param="):
+                    play_param_str = line.split("=", 1)[1]
+                    # Convert to appropriate types (mixed int/float)
+                    params = play_param_str.split()
+                    self.play_param = []
+                    for param in params:
+                        try:
+                            # Try integer first
+                            self.play_param.append(int(param))
+                        except ValueError:
+                            # If not integer, use float
+                            self.play_param.append(float(param))
+                
+                elif line.startswith("step="):
+                    step_str = line.split("=", 1)[1]
+                    # Parse step data (mixed int/float)
+                    step_values = step_str.split()
+                    step_data = []
+                    for value in step_values:
+                        try:
+                            # Try integer first
+                            step_data.append(int(value))
+                        except ValueError:
+                            # If not integer, use float
+                            step_data.append(float(value))
+                    self.motion_steps.append(step_data)
+        
+            # Log loaded motion info
+            self.get_logger().info(f"Loaded motion file: {file_path}")
+            self.get_logger().info(f"Motion name: {self.motion_name}")
+            self.get_logger().info(f"Compliance values: {self.compliance}")
+            self.get_logger().info(f"Play parameters: {self.play_param}")
+            self.get_logger().info(f"Number of motion steps: {len(self.motion_steps)}")
+        
+        except FileNotFoundError:
+            self.get_logger().error(f"Motion file not found: {file_path}")
+            self.get_logger().error("Using default motion data...")
+            # Fallback to hardcoded data if file not found
+            self.load_default_motion()
+        except Exception as e:
+            self.get_logger().error(f"Error loading motion file: {e}")
+            self.get_logger().error("Using default motion data...")
+            self.load_default_motion()
 
 def main():
     rclpy.init()
     try:
         node = AllJointsTest()
+        
+        # Optional: Load a different motion file
+        node.set_motion_file("/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions/bow.mtn")
+        
+        # Print motion info
+        motion_info = node.get_motion_info()
+        print(f"\nMotion Info:")
+        print(f"  Name: {motion_info['name']}")
+        print(f"  Steps: {motion_info['num_steps']}")
+        print(f"  Compliance: {motion_info['compliance']}")
+        print(f"  Play Params: {motion_info['play_param']}")
+        print(f"  File: {motion_info['file_path']}\n")
+        
         node.execute_motion_sequence()
         node.get_logger().info("Holding final position...")
     except Exception as e:
