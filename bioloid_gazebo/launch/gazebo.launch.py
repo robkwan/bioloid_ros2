@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler, TimerAction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, RegisterEventHandler, TimerAction, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, Command
 from launch_ros.actions import Node
@@ -10,6 +10,7 @@ from launch_ros.substitutions import FindPackageShare
 from launch.event_handlers import OnProcessExit
 from ament_index_python.packages import get_package_share_directory
 from pathlib import Path
+from ament_index_python.packages import get_package_prefix, get_package_share_directory
 
 def generate_launch_description():
     uses_gui_arg = DeclareLaunchArgument(
@@ -19,6 +20,19 @@ def generate_launch_description():
         'use_sim_time', default_value='true', description='Use simulation time in ROS nodes'
     )
 
+    # Path to your package
+    bioloid_prefix = get_package_prefix('bioloid_description')
+    bioloid_share = get_package_share_directory('bioloid_description')
+
+    # Extend GZ_SIM_RESOURCE_PATH
+    set_resource_env = SetEnvironmentVariable(
+        name='GZ_SIM_RESOURCE_PATH',
+        value=os.pathsep.join([
+            os.environ.get('GZ_SIM_RESOURCE_PATH', ''),
+            os.path.join(bioloid_share),    # where meshes/textures are
+        ])
+    )
+    
     bioloid_gazebo_dir = FindPackageShare('bioloid_gazebo')
 
     world_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'empty.sdf'])
@@ -212,6 +226,7 @@ def generate_launch_description():
     return LaunchDescription([
         uses_gui_arg,
         use_sim_time_arg,
+        set_resource_env,
         gazebo_launch,
         spawn_robot,
         bridge,

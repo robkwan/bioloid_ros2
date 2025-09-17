@@ -18,32 +18,24 @@ class AllJointsTest(Node):
  
         # Explicit mapping: step_data[1] -> r_shoulder_swing_joint, step_data[2] -> l_shoulder_swing_joint, etc.
         self.motion_to_joint_map = [
-            "r_shoulder_swing_joint",      # ID 0
-            "l_shoulder_swing_joint",      # ID 1
-            "r_shoulder_lateral_joint",    # ID 2
-            "l_shoulder_lateral_joint",    # ID 3
-            "r_elbow_joint",               # ID 4
-            "l_elbow_joint",               # ID 5
-            "r_hip_twist_joint",           # ID 6
-            "l_hip_twist_joint",           # ID 7
-            "r_hip_lateral_joint",         # ID 8
-            "l_hip_lateral_joint",         # ID 9
-            "r_hip_swing_joint",           # ID 10
-            "l_hip_swing_joint",           # ID 11
-            "r_knee_joint",                # ID 12
-            "l_knee_joint",                # ID 13
-            "r_ankle_swing_joint",         # ID 14
-            "l_ankle_swing_joint",         # ID 15
-            "r_ankle_lateral_joint",       # ID 16
-            "l_ankle_lateral_joint"        # ID 17
-        ]
-
-        # Define stable publishing order: legs first (ID 6-17), then arms (ID 0-5)
-        self.stable_publishing_order = [
-            # Legs first (ID 6-17) - critical for balance
-            6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-            # Arms last (ID 0-5) - less critical for stability
-            0, 1, 2, 3, 4, 5
+            "r_shoulder_swing_joint",
+            "l_shoulder_swing_joint",
+            "r_shoulder_lateral_joint",
+            "l_shoulder_lateral_joint",
+            "r_elbow_joint",
+            "l_elbow_joint",
+            "r_hip_twist_joint",
+            "l_hip_twist_joint",
+            "r_hip_lateral_joint",
+            "l_hip_lateral_joint",
+            "r_hip_swing_joint",
+            "l_hip_swing_joint",
+            "r_knee_joint",
+            "l_knee_joint",
+            "r_ankle_swing_joint",
+            "l_ankle_swing_joint",
+            "r_ankle_lateral_joint",
+            "l_ankle_lateral_joint"
         ]
 
         # Create trajectory publisher (optional, for debugging/monitoring)
@@ -73,10 +65,9 @@ class AllJointsTest(Node):
         # Motion control parameters
         self.position_tolerance = 0.05  # radians
         self.max_wait_time = 10.0  # maximum time to wait for position (seconds)
-        self.inter_group_delay = 0.05  # delay between leg and arm groups (seconds)
         
         # Timer for publishing joint commands
-        self.timer = self.create_timer(0.02, self.publish_trajectory)  # 50Hz for smoother control
+        self.timer = self.create_timer(0.01, self.publish_trajectory)  # 100Hz for smoother control
 
         # Use simulation time instead of wall time
         self.use_sim_time = True
@@ -102,41 +93,16 @@ class AllJointsTest(Node):
             if joint_name in self.motion_to_joint_map:
                 self.actual_joint_positions[joint_name] = msg.position[i]
 
-    def publish_trajectory_stable(self):
-        """
-        Publish joint positions in stable order: legs first (ID 6-17), then arms (ID 0-5).
-        This helps maintain robot balance during motion transitions.
-        """
-        if not self.motion_active:
-            return
-            
-        # Publish legs first (ID 6-17) - critical for balance and stability
-        for joint_id in range(6, 18):  # IDs 6-17 (legs)
-            if joint_id < len(self.motion_to_joint_map):
-                joint_name = self.motion_to_joint_map[joint_id]
-                msg = Float64()
-                msg.data = self.target_positions[joint_id]
-                self.joint_publishers[joint_name].publish(msg)
-        
-        # Small delay between leg and arm groups for better stability
-        if self.inter_group_delay > 0:
-            time.sleep(self.inter_group_delay)
-        
-        # Then publish arms (ID 0-5) - less critical for stability
-        for joint_id in range(0, 6):  # IDs 0-5 (arms)
-            if joint_id < len(self.motion_to_joint_map):
-                joint_name = self.motion_to_joint_map[joint_id]
-                msg = Float64()
-                msg.data = self.target_positions[joint_id]
-                self.joint_publishers[joint_name].publish(msg)
-
     def publish_trajectory(self):
         """
-        Timer callback to continuously publish joint positions using stable ordering.
+        Timer callback to continuously publish joint positions.
         """
         if self.motion_active:
-            # Use stable publishing order instead of sequential order
-            self.publish_trajectory_stable()
+            # Publish to individual joint topics
+            for i, joint_name in enumerate(self.motion_to_joint_map):
+                msg = Float64()
+                msg.data = self.target_positions[i]
+                self.joint_publishers[joint_name].publish(msg)
             
             # Optional: Also publish as trajectory message for monitoring
             self.publish_joint_trajectory()
@@ -200,32 +166,18 @@ class AllJointsTest(Node):
 
     def set_joint_positions(self, positions):
         """
-        Set target joint positions and activate motion with stability logging.
+        Set target joint positions and activate motion.
         """
         self.target_positions = positions.copy()
         self.motion_active = True
         
-        self.get_logger().info("Setting joint positions (legs-first order for stability)...")
+        self.get_logger().info("Setting joint positions...")
         self.get_logger().info(f"Joint positions (rad): {[f'{pos:.3f}' for pos in positions]}")
 
-        # Print joint details in stability order
-        self.get_logger().info("Joint details (publishing order: legs first, then arms):")
-        
-        # Show legs first (ID 6-17)
-        self.get_logger().info("  LEGS (published first for stability):")
-        for joint_id in range(6, 18):
-            if joint_id < len(self.motion_to_joint_map):
-                name = self.motion_to_joint_map[joint_id]
-                pos = positions[joint_id]
-                self.get_logger().info(f"    ID {joint_id:2d}: {name:25s} = {pos:7.3f} rad ({pos*180/math.pi:7.2f} deg)")
-        
-        # Show arms second (ID 0-5)
-        self.get_logger().info("  ARMS (published second):")
-        for joint_id in range(0, 6):
-            if joint_id < len(self.motion_to_joint_map):
-                name = self.motion_to_joint_map[joint_id]
-                pos = positions[joint_id]
-                self.get_logger().info(f"    ID {joint_id:2d}: {name:25s} = {pos:7.3f} rad ({pos*180/math.pi:7.2f} deg)")
+        # Print joint names + values
+        self.get_logger().info("Joint details:")
+        for i, (name, pos) in enumerate(zip(self.motion_to_joint_map, positions)):
+            self.get_logger().info(f"  ID {i:2d}: {name:25s} = {pos:7.3f} rad ({pos*180/math.pi:7.2f} deg)")
 
     def wait_for_position_reached(self, target_positions, timeout=None):
         """
@@ -246,9 +198,6 @@ class AllJointsTest(Node):
             
             # Check if all joints are close to target
             all_reached = True
-            legs_reached = True
-            arms_reached = True
-            
             for i, joint_name in enumerate(self.motion_to_joint_map):
                 if joint_name in self.actual_joint_positions:
                     current_pos = self.actual_joint_positions[joint_name]
@@ -257,28 +206,15 @@ class AllJointsTest(Node):
                     
                     if error > self.position_tolerance:
                         all_reached = False
-                        # Track which group hasn't reached target
-                        if i >= 6:  # Legs (ID 6-17)
-                            legs_reached = False
-                        else:  # Arms (ID 0-5)
-                            arms_reached = False
+                        break
                 else:
                     # Joint not found in feedback, assume not reached
                     all_reached = False
-                    if i >= 6:
-                        legs_reached = False
-                    else:
-                        arms_reached = False
+                    break
             
             if all_reached:
                 self.get_logger().info("All joints reached target positions")
                 return True
-            
-            # Log progress for stability monitoring
-            if not legs_reached and arms_reached:
-                self.get_logger().debug("Arms ready, waiting for legs...")
-            elif legs_reached and not arms_reached:
-                self.get_logger().debug("Legs ready, waiting for arms...")
             
             # Check timeout
             elapsed = (self.get_clock().now() - start_time).nanoseconds / 1e9
@@ -315,7 +251,6 @@ class AllJointsTest(Node):
         self.get_logger().info(f"Executing motion: {motion_info['name']}")
         self.get_logger().info(f"  Steps: {motion_info['num_steps']}")
         self.get_logger().info(f"  File: {motion_info['file_path']}")
-        self.get_logger().info(f"  Stability mode: Legs-first publishing enabled")
         
         # Execute the motion sequence
         self.execute_motion_sequence()
@@ -326,7 +261,6 @@ class AllJointsTest(Node):
         """
         total_motions = len(motion_files)
         self.get_logger().info(f"Starting motion sequence with {total_motions} motion files...")
-        self.get_logger().info(f"Stability enhancement: Publishing legs (ID 6-17) before arms (ID 0-5)")
         
         # Wait for joint state feedback before starting
         self.get_logger().info("Waiting for joint state feedback...")
@@ -365,14 +299,13 @@ class AllJointsTest(Node):
 
     def execute_motion_sequence(self):
         """
-        Execute all motion steps with Gazebo-safe timing and stability enhancements.
+        Execute all motion steps with Gazebo-safe timing.
         """
         if not self.motion_steps:
             self.get_logger().error("No motion steps loaded!")
             return
             
         self.get_logger().info(f"Starting motion sequence with {len(self.motion_steps)} steps...")
-        self.get_logger().info(f"Stability mode: Legs (ID 6-17) published before arms (ID 0-5)")
         
         # Wait for joint state feedback before starting (only if not already received)
         if not self.joint_state_received:
@@ -392,7 +325,7 @@ class AllJointsTest(Node):
                 self.get_logger().info(f"Pausing for {pause_duration:.2f}s (sim time)...")
                 self.sim_time_sleep(pause_duration)
 
-            # Set joint positions (using stability-enhanced publishing)
+            # Set joint positions
             self.set_joint_positions(joint_positions)
 
             # Wait for joints to actually reach the target positions
@@ -525,15 +458,6 @@ class AllJointsTest(Node):
         self.motion_steps = [neutral_step]
         self.get_logger().info("Loaded default neutral motion")
 
-    def set_inter_group_delay(self, delay):
-        """
-        Set the delay between leg and arm group publishing.
-        Args:
-            delay (float): Delay in seconds between leg and arm publishing (0 to disable)
-        """
-        self.inter_group_delay = delay
-        self.get_logger().info(f"Inter-group delay set to {delay:.3f}s")
-
 
 def read_motion_list_file(list_file_path):
     """
@@ -602,7 +526,7 @@ def parse_arguments():
     """
     Parse command line arguments.
     """
-    parser = argparse.ArgumentParser(description='ROS2 Motion Controller for Bioloid Robot (Stability Enhanced)')
+    parser = argparse.ArgumentParser(description='ROS2 Motion Controller for Bioloid Robot')
     parser.add_argument('filename', 
                        help='Motion filename (e.g., bow.mtn) or list file (e.g., sequence.txt) containing multiple motion files')
     parser.add_argument('--path', 
@@ -623,10 +547,6 @@ def parse_arguments():
                        type=float, 
                        default=1.0,
                        help='Delay between motions in sequence (default: 1.0 seconds)')
-    parser.add_argument('--group-delay', 
-                       type=float, 
-                       default=0.05,
-                       help='Delay between leg and arm groups for stability (default: 0.05 seconds, 0 to disable)')
     
     return parser.parse_args()
 
@@ -634,12 +554,6 @@ def parse_arguments():
 def main():
     # Parse command line arguments
     args = parse_arguments()
-    
-    # Print stability enhancement info
-    print("=== STABILITY ENHANCED MOTION CONTROLLER ===")
-    print("Publishing order: Legs (ID 6-17) FIRST, then Arms (ID 0-5)")
-    print(f"Inter-group delay: {args.group_delay:.3f}s")
-    print("=" * 50)
     
     # Determine if we're dealing with a single motion file or a list
     input_file_path = args.filename
@@ -694,7 +608,6 @@ def main():
         # Set motion control parameters from command line
         node.max_wait_time = args.timeout
         node.position_tolerance = args.tolerance
-        node.set_inter_group_delay(args.group_delay)
         
         if is_list_mode and len(motion_files) > 1:
             # Execute motion sequence
@@ -702,7 +615,6 @@ def main():
             print(f"  Motion files: {len(motion_files)}")
             print(f"  Base path: {args.path}")
             print(f"  Delay between motions: {args.delay}s")
-            print(f"  Inter-group delay: {args.group_delay}s")
             print(f"  Timeout: {args.timeout}s")
             print(f"  Tolerance: {args.tolerance} rad\n")
             
@@ -728,9 +640,7 @@ def main():
             print(f"  Play Params: {motion_info['play_param']}")
             print(f"  File: {motion_info['file_path']}")
             print(f"  Timeout: {args.timeout}s")
-            print(f"  Tolerance: {args.tolerance} rad")
-            print(f"  Inter-group delay: {args.group_delay}s")
-            print(f"  Stability: Legs-first publishing ENABLED\n")
+            print(f"  Tolerance: {args.tolerance} rad\n")
             
             # Run single motion in a separate thread
             motion_thread = threading.Thread(target=node.execute_motion_sequence)
