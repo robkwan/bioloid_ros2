@@ -6,7 +6,9 @@
     <physics name="dart_physics" type="dart">
       <max_step_size>0.001</max_step_size>       <!-- small step for stability -->
       <real_time_factor>1.0</real_time_factor>   <!-- run in real time -->
-      <gravity>0 0 -9.81</gravity>              <!-- normal Earth gravity -9.81-->
+      <dart>
+        <collision_detector>fcl</collision_detector>
+      </dart>
     </physics>
 
     <!-- Physics plugin (DART) -->
@@ -17,6 +19,9 @@
         <filename>libgz-physics-dartsim-plugin.so</filename>
       </engine>
     </plugin>
+    
+    <!-- Need to set this gravity under the world level not inside physics, nor plugin -->
+    <gravity>0 0 -0.0001</gravity>
 
     <!-- Scene / rendering -->
     <plugin
@@ -76,7 +81,7 @@
     <!-- GUI settings for better robot viewing -->
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>2.5 2.5 1.5 0 0.4 -0.785</pose>
+        <pose>0.47 0.0 0.57 0 0.5 0</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

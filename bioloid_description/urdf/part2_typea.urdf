@@ -116,14 +116,14 @@
   </link>
 
   <!-- Add a "world" link -->
-  <link name="world"/>
+  <!--link name="world"/-->
 
   <!-- Fix the base_link to world -->
-  <joint name="fixed_base" type="fixed">
+  <!--joint name="fixed_base" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/> 
-  </joint>
+  </joint-->
 
   <!-- Base -->
   <joint name="base_to_torso_joint" type="fixed">
@@ -544,6 +544,10 @@
     <child link="r_hip_twist_link"/>
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
   </joint>
+  <gazebo reference="r_hip_twist_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="r_hip_twist_link">
     <visual>
       <geometry>
@@ -566,11 +570,15 @@
 
   <joint name="l_hip_twist_joint" type="revolute">
     <parent link="torso_link"/>
-    <origin rpy="0 3.141592653589793 -1.5707963267948966" xyz="0 0.0385 -0.0655"/>
+    <origin rpy="0 3.141592653589793 -0.788" xyz="0 0.0385 -0.0655"/>
     <axis xyz="0 0 1"/>
     <child link="l_hip_twist_link"/>
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
   </joint>
+   <gazebo reference="l_hip_twist_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="l_hip_twist_link">
     <visual>
       <geometry>
@@ -599,6 +607,10 @@
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="r_hip_lateral_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="r_hip_lateral_link">
     <!-- Motor 9[r] 10[l] -->
     <visual>
@@ -659,6 +671,10 @@
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="l_hip_lateral_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="l_hip_lateral_link">
     <!-- Motor 9[r] 10[l] -->
     <visual>
@@ -799,6 +815,10 @@
     <limit effort="10" lower="-2" upper="0" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="r_knee_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="r_lower_leg_link">
     <!-- Motor 13[r] 14[l] -->
     <visual>
@@ -846,6 +866,10 @@
     <limit effort="10" lower="0" upper="2" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="l_knee_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="l_lower_leg_link">
     <!-- Motor 13[r] 14[l] -->
     <visual>
@@ -893,6 +917,10 @@
     <limit effort="10" lower="-0.4" upper="2.0" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="r_ankle_swing_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="r_ankle_swing_link">
     <!-- Motor 15[r] 16[l] -->
     <visual>
@@ -947,6 +975,10 @@
     <limit effort="10" lower="-2.0" upper="0.4" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="l_ankle_swing_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="l_ankle_swing_link">
     <!-- Motor 15[r] 16[l] -->
     <visual>
@@ -1001,6 +1033,10 @@
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="r_ankle_lateral_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="r_ankle_lateral_link">
     <visual>
       <geometry>
@@ -1042,6 +1078,10 @@
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
     <dynamics damping="0.5" friction="0.1"/>
   </joint>
+  <gazebo reference="l_ankle_lateral_joint">
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+  </gazebo>
   <link name="l_ankle_lateral_link">
     <visual>
       <geometry>
@@ -1096,8 +1136,6 @@
   <gazebo reference="r_foot_link">
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>10.0</kd>
     <minDepth>0.001</minDepth>
     <maxContacts>1</maxContacts>
   </gazebo>
@@ -1130,8 +1168,6 @@
   <gazebo reference="l_foot_link">
     <mu1>1.0</mu1>
     <mu2>1.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>10.0</kd>
     <minDepth>0.001</minDepth>
     <maxContacts>1</maxContacts>
   </gazebo>

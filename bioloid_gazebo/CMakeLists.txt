@@ -79,7 +79,7 @@ install(DIRECTORY launch/ OPTIONAL
 # Install config files
 install(DIRECTORY config/ OPTIONAL
         DESTINATION share/${PROJECT_NAME}/config
-        FILES_MATCHING PATTERN "*.yaml" PATTERN "*.yml"
+        FILES_MATCHING PATTERN "*.yaml" PATTERN "*.yml" PATTERN "*.config"
         )
 
 # Install world files

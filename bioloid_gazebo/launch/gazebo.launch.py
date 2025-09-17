@@ -66,6 +66,7 @@ def generate_launch_description():
 
     # Configuration file path
     config_file = PathJoinSubstitution([bioloid_gazebo_dir, 'config', 'gazebo_ros2_control.yaml'])
+    gui_config_file = PathJoinSubstitution([bioloid_gazebo_dir, 'config', 'gui.config'])
 
   
     # Use DART physics (recommended / default)
@@ -75,7 +76,8 @@ def generate_launch_description():
         ]),
         launch_arguments={
             # NOTE: switch from Bullet -> DART --physics-engine gz-physics-bullet-plugin
-            'gz_args': [world_file, ' --physics-engine gz-physics-dartsim-plugin -v 4 '],
+            #'gz_args': [world_file, ' --physics-engine gz-physics-dartsim-plugin -v 2'],
+            'gz_args': [world_file, ' --physics-engine ', 'gz-physics-dartsim-plugin ', '-v ', '2 ', '--gui-config ', gui_config_file],
             'on_exit_shutdown': 'true'
         }.items()
     )
