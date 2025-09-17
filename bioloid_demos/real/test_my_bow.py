@@ -7,6 +7,9 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from control_msgs.action import FollowJointTrajectory
 import math
 import time
+import argparse
+import os
+import sys
 
 
 class AllJointsTest(Node):
@@ -70,6 +73,12 @@ class AllJointsTest(Node):
         # Format: [dummy, joint1...joint18, skip7, pause_duration, pose_duration]
         self.motion_steps = []
 
+        # Initialize motion file path (will be set later)
+        self.motion_file_path = None
+        self.motion_name = ""
+        self.compliance = []
+        self.play_param = []
+
     def convert_to_radians(self, servo_value: int) -> float:
         """
         Convert servo value to radians.
@@ -127,7 +136,7 @@ class AllJointsTest(Node):
         traj.points.append(point)
         goal_msg.trajectory = traj
 
-        self.get_logger().info(f"Would send trajectory with duration {duration:.2f}s...")
+        self.get_logger().info(f"Sending trajectory with duration {duration:.2f}s...")
         self.get_logger().info(f"Joint positions (rad): {[f'{pos:.3f}' for pos in positions]}")
 
         # Print joint names + values
@@ -135,18 +144,77 @@ class AllJointsTest(Node):
         for i, (name, pos) in enumerate(zip(self.joint_names, positions)):
             self.get_logger().info(f"  ID {i:2d}: {name:25s} = {pos:7.3f} rad ({pos*180/math.pi:7.2f} deg)")
 
-        # Commented out for safe testing:
+        # Send trajectory to action server
         self._action_client.wait_for_server()
         send_future = self._action_client.send_goal_async(goal_msg)
         rclpy.spin_until_future_complete(self, send_future)
         if send_future.result().accepted:
             result_future = send_future.result().get_result_async()
             rclpy.spin_until_future_complete(self, result_future)
+            return result_future.result()
+        else:
+            self.get_logger().error("Goal was rejected!")
+            return None
+
+    def execute_motion_sequence_from_file(self, motion_file_path):
+        """
+        Execute a single motion file.
+        """
+        # Load the motion file
+        self.set_motion_file(motion_file_path)
+        
+        # Print motion info
+        motion_info = self.get_motion_info()
+        self.get_logger().info(f"Executing motion: {motion_info['name']}")
+        self.get_logger().info(f"  Steps: {motion_info['num_steps']}")
+        self.get_logger().info(f"  File: {motion_info['file_path']}")
+        
+        # Execute the motion sequence
+        self.execute_motion_sequence()
+
+    def execute_motion_list(self, motion_files, base_path, delay_between_motions=1.0):
+        """
+        Execute a sequence of motion files with delays between them.
+        """
+        total_motions = len(motion_files)
+        self.get_logger().info(f"Starting motion sequence with {total_motions} motion files...")
+        
+        for i, motion_filename in enumerate(motion_files):
+            self.get_logger().info(f"=== Motion {i+1}/{total_motions}: {motion_filename} ===")
+            
+            # Construct full path
+            motion_file_path = os.path.join(base_path, motion_filename)
+            
+            # Check if file exists
+            if not os.path.isfile(motion_file_path):
+                self.get_logger().error(f"Motion file not found: {motion_file_path}")
+                self.get_logger().error("Skipping this motion...")
+                continue
+            
+            # Execute the motion
+            try:
+                self.execute_motion_sequence_from_file(motion_file_path)
+                self.get_logger().info(f"Completed motion: {motion_filename}")
+            except Exception as e:
+                self.get_logger().error(f"Error executing motion {motion_filename}: {e}")
+                self.get_logger().error("Continuing with next motion...")
+                continue
+            
+            # Delay between motions (except after the last one)
+            if i < total_motions - 1 and delay_between_motions > 0:
+                self.get_logger().info(f"Waiting {delay_between_motions:.1f}s before next motion...")
+                time.sleep(delay_between_motions)
+        
+        self.get_logger().info("All motions in sequence completed!")
 
     def execute_motion_sequence(self):
         """
         Execute all motion steps.
         """
+        if not self.motion_steps:
+            self.get_logger().error("No motion steps loaded!")
+            return
+            
         self.get_logger().info(f"Starting motion sequence with {len(self.motion_steps)} steps...")
 
         for i, step_data in enumerate(self.motion_steps):
@@ -161,12 +229,11 @@ class AllJointsTest(Node):
                 time.sleep(pause_duration)
 
             # Send trajectory
-            self.send_trajectory(joint_positions, pose_duration)
+            result = self.send_trajectory(joint_positions, pose_duration if pose_duration > 0 else 2.0)
 
-            # Wait for pose to complete
-            if pose_duration > 0:
-                self.get_logger().info(f"Waiting {pose_duration:.2f}s...")
-                time.sleep(pose_duration)
+            # Wait for pose to complete (the action client already waits for completion)
+            if result is None:
+                self.get_logger().warn("Failed to execute trajectory step")
 
         self.get_logger().info("Motion sequence completed!")
 
@@ -257,35 +324,203 @@ class AllJointsTest(Node):
         
         except FileNotFoundError:
             self.get_logger().error(f"Motion file not found: {file_path}")
-            self.get_logger().error("Using default motion data...")
-            # Fallback to hardcoded data if file not found
-            self.load_default_motion()
+            raise FileNotFoundError(f"Motion file not found: {file_path}")
         except Exception as e:
             self.get_logger().error(f"Error loading motion file: {e}")
-            self.get_logger().error("Using default motion data...")
-            self.load_default_motion()
+            raise Exception(f"Error loading motion file: {e}")
+
+    def load_default_motion(self):
+        """
+        Load a basic default motion if no file is provided.
+        This is a simple neutral pose.
+        """
+        self.motion_name = "default_neutral"
+        self.compliance = [0] * len(self.motion_to_joint_map)
+        self.play_param = [5000]  # Default play parameter
+        
+        # Create a single neutral step (all servos at 512 = 0 degrees)
+        neutral_step = [0]  # dummy value
+        neutral_step.extend([512] * 18)  # 18 joints at neutral position
+        neutral_step.extend([0, 0])  # skip7, pause_duration, pose_duration
+        neutral_step.extend([0.0, 2.0])  # pause=0s, hold=2s
+        
+        self.motion_steps = [neutral_step]
+        self.get_logger().info("Loaded default neutral motion")
+
+
+def read_motion_list_file(list_file_path):
+    """
+    Read a list file containing motion filenames.
+    Returns a list of motion filenames.
+    """
+    motion_files = []
+    
+    try:
+        with open(list_file_path, 'r') as file:
+            lines = file.readlines()
+        
+        for line_num, line in enumerate(lines, 1):
+            line = line.strip()
+            
+            # Skip empty lines and comments (lines starting with #)
+            if not line or line.startswith('#'):
+                continue
+            
+            # Check if line contains a valid motion filename
+            if not line.endswith('.mtn'):
+                print(f"Warning: Line {line_num} doesn't end with '.mtn': {line}")
+                print(f"  Adding '.mtn' extension automatically")
+                line = line + '.mtn'
+            
+            motion_files.append(line)
+            print(f"  {len(motion_files):2d}: {line}")
+    
+    except FileNotFoundError:
+        raise FileNotFoundError(f"List file not found: {list_file_path}")
+    except Exception as e:
+        raise Exception(f"Error reading list file: {e}")
+    
+    return motion_files
+
+
+def validate_motion_files(motion_files, base_path):
+    """
+    Validate that all motion files in the list exist.
+    Returns list of valid files and prints warnings for missing files.
+    """
+    valid_files = []
+    missing_files = []
+    
+    for motion_file in motion_files:
+        full_path = os.path.join(base_path, motion_file)
+        if os.path.isfile(full_path):
+            valid_files.append(motion_file)
+        else:
+            missing_files.append(motion_file)
+    
+    if missing_files:
+        print(f"\nWarning: {len(missing_files)} motion file(s) not found:")
+        for missing_file in missing_files:
+            print(f"  - {missing_file}")
+        
+        if valid_files:
+            print(f"\nWill proceed with {len(valid_files)} valid motion file(s)")
+        else:
+            raise FileNotFoundError("No valid motion files found!")
+    
+    return valid_files
+
+
+def parse_arguments():
+    """
+    Parse command line arguments.
+    """
+    parser = argparse.ArgumentParser(description='ROS2 Motion Controller for Bioloid Robot (Action Client Version)')
+    parser.add_argument('filename', 
+                       help='Motion filename (e.g., bow.mtn) or list file (e.g., sequence.txt) containing multiple motion files')
+    parser.add_argument('--path', 
+                       default='/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions',
+                       help='Base path to motion files directory (default: /home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions)')
+    parser.add_argument('--list', 
+                       action='store_true',
+                       help='Treat input file as a list file containing multiple motion filenames')
+    parser.add_argument('--delay', 
+                       type=float, 
+                       default=1.0,
+                       help='Delay between motions in sequence (default: 1.0 seconds)')
+    
+    return parser.parse_args()
+
 
 def main():
+    # Parse command line arguments
+    args = parse_arguments()
+    
+    # Determine if we're dealing with a single motion file or a list
+    input_file_path = args.filename
+    if not os.path.isabs(input_file_path):
+        # If relative path, check in motion directory first, then current directory
+        motion_dir_path = os.path.join(args.path, input_file_path)
+        current_dir_path = input_file_path
+        
+        if os.path.isfile(motion_dir_path):
+            input_file_path = motion_dir_path
+        elif os.path.isfile(current_dir_path):
+            input_file_path = current_dir_path
+        else:
+            print(f"Error: Input file not found: {input_file_path}")
+            print(f"Searched in:")
+            print(f"  Motion directory: {motion_dir_path}")
+            print(f"  Current directory: {current_dir_path}")
+            sys.exit(1)
+    
+    # Check if input file exists
+    if not os.path.isfile(input_file_path):
+        print(f"Error: Input file not found: {input_file_path}")
+        sys.exit(1)
+    
+    # Determine mode: single motion file or motion list
+    motion_files = []
+    is_list_mode = args.list or not input_file_path.endswith('.mtn')
+    
+    if is_list_mode:
+        print(f"List mode: Reading motion sequence from {input_file_path}")
+        try:
+            motion_files = read_motion_list_file(input_file_path)
+            print(f"Found {len(motion_files)} motion files in list:")
+            
+            # Validate motion files
+            motion_files = validate_motion_files(motion_files, args.path)
+            print(f"Validated {len(motion_files)} motion files")
+            
+        except Exception as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+    else:
+        print(f"Single motion mode: {input_file_path}")
+        motion_files = [os.path.basename(input_file_path)]
+        # Update args.path to be the directory of the single file
+        args.path = os.path.dirname(input_file_path) or args.path
+    
     rclpy.init()
     try:
         node = AllJointsTest()
         
-        # Optional: Load a different motion file
-        node.set_motion_file("/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions/bow.mtn")
+        if is_list_mode and len(motion_files) > 1:
+            # Execute motion sequence from list
+            print(f"\nExecuting motion sequence:")
+            print(f"  Motion files: {len(motion_files)}")
+            print(f"  Base path: {args.path}")
+            print(f"  Delay between motions: {args.delay}s\n")
+            
+            # Execute motion list
+            node.execute_motion_list(motion_files, args.path, args.delay)
+            
+        else:
+            # Single motion file mode
+            motion_file_path = os.path.join(args.path, motion_files[0])
+            print(f"Loading motion file: {motion_file_path}")
+            
+            # Load the specified motion file
+            node.set_motion_file(motion_file_path)
+            
+            # Print motion info
+            motion_info = node.get_motion_info()
+            print(f"\nMotion Info:")
+            print(f"  Name: {motion_info['name']}")
+            print(f"  Steps: {motion_info['num_steps']}")
+            print(f"  Compliance: {motion_info['compliance']}")
+            print(f"  Play Params: {motion_info['play_param']}")
+            print(f"  File: {motion_info['file_path']}\n")
+            
+            # Execute single motion
+            node.execute_motion_sequence()
         
-        # Print motion info
-        motion_info = node.get_motion_info()
-        print(f"\nMotion Info:")
-        print(f"  Name: {motion_info['name']}")
-        print(f"  Steps: {motion_info['num_steps']}")
-        print(f"  Compliance: {motion_info['compliance']}")
-        print(f"  Play Params: {motion_info['play_param']}")
-        print(f"  File: {motion_info['file_path']}\n")
+        node.get_logger().info("Motion execution completed!")
         
-        node.execute_motion_sequence()
-        node.get_logger().info("Holding final position...")
     except Exception as e:
         print(f"Error: {e}")
+        sys.exit(1)
     finally:
         rclpy.shutdown()
 
