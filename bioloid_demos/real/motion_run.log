@@ -1,0 +1,11 @@
+Single motion mode: /home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions/bow.mtn
+Dynamixel initialized successfully on /dev/ttyUSB0
+Loading motion file: /home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions/bow.mtn
+
+Motion Info:
+  Name: Bow
+  Steps: 6
+  Compliance: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+  Play Params: [0, 0, 1, 1.0, 32]
+  File: /home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions/bow.mtn
+
