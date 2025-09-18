@@ -153,7 +153,15 @@ def generate_launch_description():
         output='screen',
         parameters=[{'use_sim_time': LaunchConfiguration('use_sim_time')}]
     )
-    
+ 
+    # anti-gravity force node
+    anti_gravity_node = Node(
+        package='bioloid_gazebo',  # or wherever you put the node
+        executable='anti_gravity.py',
+        output='screen',
+        parameters=[{'use_sim_time': LaunchConfiguration('use_sim_time')}]
+    )
+ 
     # ros_gz_bridge: joint_states (GZ -> ROS)
     bridge_joint_states = Node(
         package='ros_gz_bridge',
@@ -233,6 +241,7 @@ def generate_launch_description():
         #bridge_joint_states,
         #bridge_joint_commands,
         robot_state_publisher,
+        #anti_gravity_node,
         #trajectory_node
         #hold_node
         #joint_setter,

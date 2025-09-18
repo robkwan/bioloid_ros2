@@ -76,7 +76,7 @@ class AllJointsTest(Node):
         self.inter_group_delay = 0.05  # delay between leg and arm groups (seconds)
         
         # Timer for publishing joint commands
-        self.timer = self.create_timer(0.02, self.publish_trajectory)  # 50Hz for smoother control
+        self.timer = self.create_timer(0.01, self.publish_trajectory)  # 100Hz for smoother control
 
         # Use simulation time instead of wall time
         self.use_sim_time = True

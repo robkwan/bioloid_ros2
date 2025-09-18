@@ -133,11 +133,11 @@
   </joint>
   
   <link name="base_link">
-    <inertial>
+    <!--inertial>
       <mass value="0.25"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.00026" ixy="0" ixz="0" iyy="0.00026" iyz="0" izz="0.00042"/>
-    </inertial>
+    </inertial-->
     <!--collision>
       <geometry>
         <box size="0.1 0.1 0.1"/>  

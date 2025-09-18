@@ -63,6 +63,7 @@ include_directories(include)
 
 # Install Python executables
 install(PROGRAMS
+  scripts/anti_gravity.py
   scripts/trajectory_publisher.py
   scripts/hold_node.py
   scripts/reliable_joint_setter.py

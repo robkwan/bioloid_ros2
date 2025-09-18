@@ -78,14 +78,6 @@
       </link>
     </model>
 
-    <!-- GUI settings for better robot viewing -->
-    <gui fullscreen='0'>
-      <camera name='user_camera'>
-        <pose>0.47 0.0 0.57 0 0.5 0</pose>
-        <view_controller>orbit</view_controller>
-        <projection_type>perspective</projection_type>
-      </camera>
-    </gui>
   </world>
 </sdf>
 
