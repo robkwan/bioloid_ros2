@@ -1,0 +1,101 @@
+#gz_ros2_control:
+#  ros__parameters:
+    #robot_description_command: ["/usr/bin/xacro", "/home/robkwan/ros2_ws/install/bioloid_description/share/bioloid_description/urdf/part3_typea.urdf"]
+    #joints:
+    #  - r_shoulder_swing_joint
+    #  - l_shoulder_swing_joint
+    #  - r_shoulder_lateral_joint
+    #  - l_shoulder_lateral_joint
+    #  - r_elbow_joint
+    #  - l_elbow_joint
+    #  - r_hip_twist_joint
+    #  - l_hip_twist_joint
+    #  - r_hip_lateral_joint
+    #  - l_hip_lateral_joint
+    #  - r_hip_swing_joint
+    #  - l_hip_swing_joint
+    #  - r_knee_joint
+    #  - l_knee_joint
+    #  - r_ankle_swing_joint
+    #  - l_ankle_swing_joint
+    #  - r_ankle_lateral_joint
+    #  - l_ankle_lateral_joint
+    
+    # name of the sim hardware class as seen in gz_hardware_plugins.xml
+#    robot_hw_sim:
+#      plugin: gz_ros2_control/GazeboSimSystem
+    # optionally more params for the resource manager, controllers, etc.
+
+
+typea:
+  ros__parameters:
+    update_rate: 200  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+joint_state_broadcaster:
+  ros__parameters: 
+    type: joint_state_broadcaster/JointStateBroadcaster
+    joints:
+      - r_shoulder_swing_joint
+      - l_shoulder_swing_joint
+      - r_shoulder_lateral_joint
+      - l_shoulder_lateral_joint
+      - r_elbow_joint
+      - l_elbow_joint
+      - r_hip_twist_joint
+      - l_hip_twist_joint
+      - r_hip_lateral_joint
+      - l_hip_lateral_joint
+      - r_hip_swing_joint
+      - l_hip_swing_joint
+      - r_knee_joint
+      - l_knee_joint
+      - r_ankle_swing_joint
+      - l_ankle_swing_joint
+      - r_ankle_lateral_joint
+      - l_ankle_lateral_joint
+    interfaces:
+      - position
+      - velocity 
+  
+joint_trajectory_controller:
+  ros__parameters:
+    type: joint_trajectory_controller/JointTrajectoryController
+    joints:
+      - r_shoulder_swing_joint
+      - l_shoulder_swing_joint
+      - r_shoulder_lateral_joint
+      - l_shoulder_lateral_joint
+      - r_elbow_joint
+      - l_elbow_joint
+      - r_hip_twist_joint
+      - l_hip_twist_joint
+      - r_hip_lateral_joint
+      - l_hip_lateral_joint
+      - r_hip_swing_joint
+      - l_hip_swing_joint
+      - r_knee_joint
+      - l_knee_joint
+      - r_ankle_swing_joint
+      - l_ankle_swing_joint
+      - r_ankle_lateral_joint
+      - l_ankle_lateral_joint
+    allow_partial_joints: true
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    constraints:
+      stopped_velocity_tolerance: 0.05
+      goal_time: 0.0
+
