@@ -1357,10 +1357,8 @@
         -->
   </link>
   <gazebo reference="r_foot_link">
-    <mu1>9000</mu1>
-    <mu2>9000</mu2>
-    <kp>1000000.0</kp>
-    <kd>10.0</kd>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <minDepth>0.001</minDepth>
     <maxContacts>1</maxContacts>
   </gazebo>
@@ -1398,10 +1396,8 @@
         -->
   </link>
   <gazebo reference="l_foot_link">
-    <mu1>9000</mu1>
-    <mu2>9000</mu2>
-    <kp>1000000.0</kp>
-    <kd>10.0</kd>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <minDepth>0.001</minDepth>
     <maxContacts>1</maxContacts>
   </gazebo>

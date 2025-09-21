@@ -96,19 +96,10 @@ def generate_launch_description():
         }.items()
     )
     
-    gz_ros2_control = Node(
-        package="gz_ros2_control",
-        executable="gz_ros2_control_system",
-        name="gz_ros2_control",
-        output="screen",
-        parameters=[config_file],
-    )
-    
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         name='robot_state_publisher',
-        #namespace='typea',
         output='screen',
         parameters=[{'robot_description': robot_description},
                     {'use_sim_time': LaunchConfiguration('use_sim_time')}]
@@ -209,7 +200,6 @@ def generate_launch_description():
     controller_manager = Node(
         package='controller_manager',
         executable='ros2_control_node',
-        #namespace='typea',
         parameters=[
             {'robot_description': robot_description},
             {'use_sim_time': LaunchConfiguration('use_sim_time')},
@@ -221,16 +211,13 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        #namespace='typea',
         arguments=['joint_state_broadcaster', 
                    '--controller-manager-timeout', '120', '--switch-timeout', '100',
-                   #'--param-file', '/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_gazebo/config/gazebo_ros2_control.yaml'
                    ],
     )
     joint_trajectory_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
-        #namespace='typea',
         arguments=[
             'joint_trajectory_controller',  
             '--controller-manager-timeout', '120', '--switch-timeout', '100',
@@ -290,27 +277,11 @@ def generate_launch_description():
         delayed_spawn,
         #bridge_joint_states,
         #bridge_joint_commands,
-        #delayed_controller_manager,
-        #controller_manager,
         #joint_state_broadcaster_spawner,
         #joint_trajectory_controller_spawner,
-        #delayed_joint_state_broadcaster,
-        #delayed_joint_trajectory_controller,
         #anti_gravity_node,
         #trajectory_node
         #hold_node
         #joint_setter,
-         # Wait 10 seconds for Gazebo and the robot_state_publisher to be fully ready
-        #TimerAction(
-        #    period=15.0,
-        #    actions=[
-        #        spawn_robot,
-        #        #controller_manager,
-        #        #gz_ros2_control,
-        #        joint_state_broadcaster_spawner,
-        #        joint_trajectory_controller_spawner,
-        #    ]
-        #)        
-        
     ])
 
