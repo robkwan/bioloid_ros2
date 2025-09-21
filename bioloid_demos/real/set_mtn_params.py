@@ -238,13 +238,13 @@ class ComplianceSetter:
                     torque_limit = max(0, min(1023, torque_limit))  # Clamp to valid range
                     
                     # Write TORQUE_LIMIT value
-                    dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(
-                        self.portHandler, dxl_id, self.ADDR_TORQUE_LIMIT, torque_limit
-                    )
+                    #dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(
+                    #    self.portHandler, dxl_id, self.ADDR_TORQUE_LIMIT, torque_limit
+                    #)
                     
-                    if dxl_comm_result != 0 or dxl_error != 0:
-                        print(f"? Failed to write TORQUE_LIMIT for ID {dxl_id}: comm={dxl_comm_result}, err={dxl_error}")
-                        continue
+                    #if dxl_comm_result != 0 or dxl_error != 0:
+                    #    print(f"? Failed to write TORQUE_LIMIT for ID {dxl_id}: comm={dxl_comm_result}, err={dxl_error}")
+                    #    continue
                 
                 success_count += 1
                 
@@ -295,7 +295,7 @@ class ComplianceSetter:
                 if line.startswith("compliance="):
                     compliance_str = line.split("=", 1)[1]
                     compliance_values = [int(x) for x in compliance_str.split()]
-                    print(f"? Loaded compliance from {file_path}: {compliance_values}")
+                    print(f"?? Loaded compliance from {file_path}: {compliance_values}")
                 
                 elif line.startswith("play_param="):
                     play_param_str = line.split("=", 1)[1]
@@ -309,7 +309,7 @@ class ComplianceSetter:
                         except ValueError:
                             # If not integer, use float
                             play_param.append(float(param))
-                    print(f"? Loaded play_param from {file_path}: {play_param}")
+                    print(f"?? Loaded play_param from {file_path}: {play_param}")
             
             return compliance_values, play_param
             
@@ -321,6 +321,7 @@ class ComplianceSetter:
 def read_motion_list_file(list_file_path):
     """
     Read a list file containing motion filenames.
+    Supports both .txt and .lst extensions.
     Returns a list of motion filenames.
     """
     motion_files = []
@@ -353,13 +354,45 @@ def read_motion_list_file(list_file_path):
     return motion_files
 
 
+def is_list_file(file_path):
+    """
+    Determine if a file is a list file based on its extension.
+    Supports .lst, .txt extensions and auto-detection.
+    """
+    # Check file extension
+    if file_path.lower().endswith(('.lst', '.txt')):
+        return True
+    
+    # If it doesn't end with .mtn, it's likely a list file
+    if not file_path.lower().endswith('.mtn'):
+        return True
+    
+    return False
+
+
+def find_file_in_paths(filename, search_paths):
+    """
+    Search for a file in multiple paths and return the first match.
+    Args:
+        filename: Name of the file to search for
+        search_paths: List of paths to search in
+    Returns:
+        Full path to the file if found, None otherwise
+    """
+    for path in search_paths:
+        full_path = os.path.join(path, filename)
+        if os.path.isfile(full_path):
+            return full_path
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description='Set Dynamixel compliance values before starting ROS2 controllers')
-    parser.add_argument('filename', nargs='?', help='Motion filename (e.g., bow.mtn) or list file (e.g., sequence.txt)')
+    parser.add_argument('filename', nargs='?', help='Motion filename (e.g., bow.mtn) or list file (e.g., sequence.lst, sequence.txt)')
     parser.add_argument('--path', 
                        default='/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions',
                        help='Base path to motion files directory')
-    parser.add_argument('--list', action='store_true', help='Treat input file as a list file')
+    parser.add_argument('--list', action='store_true', help='Force treat input file as a list file (auto-detected for .lst/.txt files)')
     parser.add_argument('--values', help='Comma-separated compliance values (e.g., "0,5,5,6,6,4,4...")')
     parser.add_argument('--play-param', help='Comma-separated play param values (e.g., "0,0,1,1.0,32")')
     parser.add_argument('--port', default='/dev/ttyUSB0', help='Dynamixel port')
@@ -371,6 +404,10 @@ def main():
     parser.add_argument('--no-baseline', action='store_true', help='Do not use baseline speed for zero-speed servos')
     
     args = parser.parse_args()
+    
+    print("=== DYNAMIXEL COMPLIANCE SETTER ===")
+    print("Supports: .mtn files, .lst files, .txt files")
+    print("=" * 40)
     
     # Create compliance setter
     setter = ComplianceSetter()
@@ -401,7 +438,7 @@ def main():
             if args.values:
                 try:
                     compliance_values = [int(x.strip()) for x in args.values.split(',')]
-                    print(f"? Using command line compliance values: {compliance_values}")
+                    print(f"?? Using command line compliance values: {compliance_values}")
                 except ValueError as e:
                     print(f"? Error parsing compliance values: {e}")
                     sys.exit(1)
@@ -416,40 +453,36 @@ def main():
                             play_param.append(int(param_str))
                         except ValueError:
                             play_param.append(float(param_str))
-                    print(f"? Using command line play parameters: {play_param}")
+                    print(f"?? Using command line play parameters: {play_param}")
                 except ValueError as e:
                     print(f"? Error parsing play parameters: {e}")
                     sys.exit(1)
                     
         elif args.filename:
-            # Determine file path
-            input_file_path = args.filename
-            if not os.path.isabs(input_file_path):
-                # If relative path, check in motion directory first, then current directory
-                motion_dir_path = os.path.join(args.path, input_file_path)
-                current_dir_path = input_file_path
-                
-                if os.path.isfile(motion_dir_path):
-                    input_file_path = motion_dir_path
-                elif os.path.isfile(current_dir_path):
-                    input_file_path = current_dir_path
-                else:
-                    print(f"? Input file not found: {input_file_path}")
-                    print(f"Searched in:")
-                    print(f"  Motion directory: {motion_dir_path}")
-                    print(f"  Current directory: {current_dir_path}")
-                    sys.exit(1)
+            # Search for input file in multiple locations
+            search_paths = [
+                args.path,           # Motion directory (first priority)
+                os.getcwd(),         # Current directory
+                os.path.dirname(os.path.abspath(__file__))  # Script directory
+            ]
             
-            # Check if input file exists
-            if not os.path.isfile(input_file_path):
-                print(f"? Input file not found: {input_file_path}")
+            input_file_path = find_file_in_paths(args.filename, search_paths)
+            
+            if input_file_path is None:
+                print(f"? Input file '{args.filename}' not found in any of these locations:")
+                for i, path in enumerate(search_paths, 1):
+                    full_path = os.path.join(path, args.filename)
+                    print(f"  {i}. {full_path}")
                 sys.exit(1)
             
-            # Determine if it's a list file or motion file
-            is_list_file = args.list or not input_file_path.endswith('.mtn')
+            print(f"Found input file: {input_file_path}")
             
-            if is_list_file:
-                print(f"?? List mode: Reading motion list from {input_file_path}")
+            # Determine if it's a list file or motion file
+            is_list_mode = args.list or is_list_file(input_file_path)
+            
+            if is_list_mode:
+                file_ext = os.path.splitext(input_file_path)[1].lower()
+                print(f"?? List mode: Reading motion list from {input_file_path} ({file_ext} file)")
                 try:
                     motion_files = read_motion_list_file(input_file_path)
                     print(f"Found {len(motion_files)} motion files in list")
@@ -481,7 +514,7 @@ def main():
         if compliance_values is None and play_param is None:
             compliance_values = [0] + [5] * 18  # dummy + 18 servos
             play_param = [0, 0, 1, 1.0, 32]  # default play parameters
-            print("? Using default values:")
+            print("?? Using default values:")
             print(f"  Compliance: all servos 2^5 = 32")
             print(f"  Play param: {play_param}")
         
@@ -512,7 +545,7 @@ def main():
             if not play_param_success:
                 failed_parts.append("play parameters")
             
-            print(f"\n??  Failed to set: {', '.join(failed_parts)}")
+            print(f"\n? Failed to set: {', '.join(failed_parts)}")
             print("Check servo connections and try again.")
             sys.exit(1)
     

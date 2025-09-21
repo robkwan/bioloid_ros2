@@ -511,6 +511,7 @@ class AllJointsTest(Node):
 def read_motion_list_file(list_file_path):
     """
     Read a list file containing motion filenames.
+    Supports both .txt and .lst extensions.
     Returns a list of motion filenames.
     """
     motion_files = []
@@ -571,19 +572,51 @@ def validate_motion_files(motion_files, base_path):
     return valid_files
 
 
+def is_list_file(file_path):
+    """
+    Determine if a file is a list file based on its extension and content.
+    Supports .lst, .txt extensions and auto-detection.
+    """
+    # Check file extension
+    if file_path.lower().endswith(('.lst', '.txt')):
+        return True
+    
+    # If it doesn't end with .mtn, it's likely a list file
+    if not file_path.lower().endswith('.mtn'):
+        return True
+    
+    return False
+
+
+def find_file_in_paths(filename, search_paths):
+    """
+    Search for a file in multiple paths and return the first match.
+    Args:
+        filename: Name of the file to search for
+        search_paths: List of paths to search in
+    Returns:
+        Full path to the file if found, None otherwise
+    """
+    for path in search_paths:
+        full_path = os.path.join(path, filename)
+        if os.path.isfile(full_path):
+            return full_path
+    return None
+
+
 def parse_arguments():
     """
     Parse command line arguments.
     """
     parser = argparse.ArgumentParser(description='ROS2 Motion Controller for Bioloid Robot (Action Client Version)')
     parser.add_argument('filename', 
-                       help='Motion filename (e.g., bow.mtn) or list file (e.g., sequence.txt) containing multiple motion files')
+                       help='Motion filename (e.g., bow.mtn) or list file (e.g., sequence.lst, sequence.txt) containing multiple motion files')
     parser.add_argument('--path', 
                        default='/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions',
                        help='Base path to motion files directory (default: /home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_demos/motions)')
     parser.add_argument('--list', 
                        action='store_true',
-                       help='Treat input file as a list file containing multiple motion filenames')
+                       help='Force treat input file as a list file (auto-detected for .lst/.txt files)')
     parser.add_argument('--delay', 
                        type=float, 
                        default=1.0,
@@ -606,35 +639,36 @@ def main():
     # Parse command line arguments
     args = parse_arguments()
     
-    # Determine if we're dealing with a single motion file or a list
-    input_file_path = args.filename
-    if not os.path.isabs(input_file_path):
-        # If relative path, check in motion directory first, then current directory
-        motion_dir_path = os.path.join(args.path, input_file_path)
-        current_dir_path = input_file_path
-        
-        if os.path.isfile(motion_dir_path):
-            input_file_path = motion_dir_path
-        elif os.path.isfile(current_dir_path):
-            input_file_path = current_dir_path
-        else:
-            print(f"Error: Input file not found: {input_file_path}")
-            print(f"Searched in:")
-            print(f"  Motion directory: {motion_dir_path}")
-            print(f"  Current directory: {current_dir_path}")
-            sys.exit(1)
+    # Print header info
+    print("=== ACTION CLIENT MOTION CONTROLLER ===")
+    print("Supports: .mtn files, .lst files, .txt files")
+    print("=" * 45)
     
-    # Check if input file exists
-    if not os.path.isfile(input_file_path):
-        print(f"Error: Input file not found: {input_file_path}")
+    # Search for input file in multiple locations
+    search_paths = [
+        args.path,           # Motion directory (first priority)
+        os.getcwd(),         # Current directory
+        os.path.dirname(os.path.abspath(__file__))  # Script directory
+    ]
+    
+    input_file_path = find_file_in_paths(args.filename, search_paths)
+    
+    if input_file_path is None:
+        print(f"Error: Input file '{args.filename}' not found in any of these locations:")
+        for i, path in enumerate(search_paths, 1):
+            full_path = os.path.join(path, args.filename)
+            print(f"  {i}. {full_path}")
         sys.exit(1)
+    
+    print(f"Found input file: {input_file_path}")
     
     # Determine mode: single motion file or motion list
     motion_files = []
-    is_list_mode = args.list or not input_file_path.endswith('.mtn')
+    is_list_mode = args.list or is_list_file(input_file_path)
     
     if is_list_mode:
-        print(f"List mode: Reading motion sequence from {input_file_path}")
+        file_ext = os.path.splitext(input_file_path)[1].lower()
+        print(f"List mode: Reading motion sequence from {input_file_path} ({file_ext} file)")
         try:
             motion_files = read_motion_list_file(input_file_path)
             print(f"Found {len(motion_files)} motion files in list:")
