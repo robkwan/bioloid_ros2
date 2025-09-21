@@ -26,6 +26,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_shoulder_swing_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_shoulder_swing_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_shoulder_swing_joint">
@@ -36,6 +43,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_shoulder_swing_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_shoulder_lateral_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_shoulder_lateral_joint">
@@ -46,6 +60,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_shoulder_lateral_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>  
   <transmission name="l_shoulder_lateral_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_shoulder_lateral_joint">
@@ -56,6 +77,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_shoulder_lateral_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_elbow_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_elbow_joint">
@@ -66,6 +94,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_elbow_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_elbow_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_elbow_joint">
@@ -76,6 +111,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_elbow_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_hip_twist_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_hip_twist_joint">
@@ -86,6 +128,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_hip_twist_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_hip_twist_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_hip_twist_joint">
@@ -96,6 +145,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_hip_twist_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_hip_lateral_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_hip_lateral_joint">
@@ -106,6 +162,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_hip_lateral_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_hip_lateral_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_hip_lateral_joint">
@@ -116,6 +179,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_hip_lateral_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_hip_swing_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_hip_swing_joint">
@@ -126,6 +196,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_hip_swing_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_hip_swing_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_hip_swing_joint">
@@ -136,6 +213,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_hip_swing_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_knee_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_knee_joint">
@@ -146,6 +230,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_knee_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_knee_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_knee_joint">
@@ -156,6 +247,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_knee_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_ankle_swing_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_ankle_swing_joint">
@@ -166,6 +264,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_ankle_swing_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_ankle_swing_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_ankle_swing_joint">
@@ -176,6 +281,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="l_ankle_swing_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="r_ankle_lateral_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="r_ankle_lateral_joint">
@@ -186,6 +298,13 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <gazebo>
+    <actuator name="r_ankle_lateral_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
   <transmission name="l_ankle_lateral_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="l_ankle_lateral_joint">
@@ -196,7 +315,14 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-
+  <gazebo>
+    <actuator name="l_ankle_lateral_joint_motor" type="motor">
+        <dynamics>
+            <effort>10.0</effort> 
+        </dynamics>
+    </actuator>
+  </gazebo>
+  
   <!-- Torso -->
   <link name="torso_link">
     <visual>
@@ -370,6 +496,37 @@
       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
     </inertial>
   </link>
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>/imu</topic>
+      <imu>
+        <angular_velocity>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.001</stddev> <!-- ~0.057 deg/s -->
+            <bias_mean>0.001</bias_mean>
+            <bias_stddev>0.0001</bias_stddev>
+          </noise>
+        </angular_velocity>
+        <linear_acceleration>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>  <!-- ~0.001g -->
+            <bias_mean>0.001</bias_mean>
+            <bias_stddev>0.0001</bias_stddev>
+          </noise>
+        </linear_acceleration>
+      </imu>
+      <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu">
+        <!-- You can configure noise here if needed -->
+      </plugin>
+    </sensor>
+  </gazebo>
 
   <!-- Right Arm -->
   <joint name="r_shoulder_swing_joint" type="revolute">
@@ -378,7 +535,7 @@
     <axis xyz="0 0 1"/>
     <child link="r_shoulder_swing_link"/>
     <limit effort="2.8" lower="-1" upper="1.5707963267948966" velocity="1.0"/>
-    <dynamics damping="0.1" friction="0.05"/>
+    <dynamics damping="5.0" friction="0.05"/>
   </joint>
   <link name="r_shoulder_swing_link">
     <visual>
@@ -406,7 +563,7 @@
     <axis xyz="0 0 1"/>
     <child link="l_shoulder_swing_link"/>
     <limit effort="2.8" lower="-1" upper="1.5707963267948966" velocity="1.0"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="l_shoulder_swing_link">
     <visual>
@@ -441,7 +598,7 @@
     <axis xyz="0 0 -1"/>
     <child link="r_upper_arm_link"/>
     <limit effort="2.8" lower="-1.5" upper="1.5" velocity="1.0"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="r_upper_arm_link">
     <visual>
@@ -499,7 +656,7 @@
     <axis xyz="0 0 1"/>
     <child link="l_upper_arm_link"/>
     <limit effort="2.8" lower="-1.5" upper="1.5" velocity="1.0"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="l_upper_arm_link">
     <visual>
@@ -564,7 +721,7 @@
     <axis xyz="0 0 -1"/>
     <child link="r_lower_arm_link"/>
     <limit effort="2.8" lower="-1.77" upper="1.77" velocity="1.0"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="r_lower_arm_link">
     <!-- Motor 5 -->
@@ -611,7 +768,7 @@
     <axis xyz="0 0 1"/>
     <child link="l_lower_arm_link"/>
     <limit effort="2.8" lower="-1.77" upper="1.77" velocity="1.0"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="l_lower_arm_link">
     <!-- Motor 6 -->
@@ -796,7 +953,7 @@
     <axis xyz="0 0 -1"/>
     <child link="r_hip_lateral_link"/>
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="r_hip_lateral_joint">
     <kp>1000000.0</kp>
@@ -860,7 +1017,7 @@
     <axis xyz="0 0 -1"/>
     <child link="l_hip_lateral_link"/>
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="l_hip_lateral_joint">
     <kp>1000000.0</kp>
@@ -924,7 +1081,7 @@
     <axis xyz="0 0 1"/>
     <child link="r_upper_leg_link"/>
     <limit effort="10" lower="-2.0" upper="2.0" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="r_upper_leg_link">
     <visual>
@@ -964,7 +1121,7 @@
     <axis xyz="0 0 1"/>
     <child link="l_upper_leg_link"/>
     <limit effort="10" lower="-2.0" upper="2.0" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <link name="l_upper_leg_link">
     <visual>
@@ -1004,7 +1161,7 @@
     <axis xyz="0 0 -1"/>
     <child link="r_lower_leg_link"/>
     <limit effort="10" lower="-2" upper="0" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="r_knee_joint">
     <kp>1000000.0</kp>
@@ -1055,7 +1212,7 @@
     <axis xyz="0 0 -1"/>
     <child link="l_lower_leg_link"/>
     <limit effort="10" lower="0" upper="2" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="l_knee_joint">
     <kp>1000000.0</kp>
@@ -1106,7 +1263,7 @@
     <axis xyz="0 0 1"/>
     <child link="r_ankle_swing_link"/>
     <limit effort="10" lower="-0.4" upper="2.0" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="r_ankle_swing_joint">
     <kp>1000000.0</kp>
@@ -1164,7 +1321,7 @@
     <axis xyz="0 0 1"/>
     <child link="l_ankle_swing_link"/>
     <limit effort="10" lower="-2.0" upper="0.4" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="l_ankle_swing_joint">
     <kp>1000000.0</kp>
@@ -1222,7 +1379,7 @@
     <axis xyz="0 0 -1"/>
     <child link="r_ankle_lateral_link"/>
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="r_ankle_lateral_joint">
     <kp>1000000.0</kp>
@@ -1267,7 +1424,7 @@
     <axis xyz="0 0 -1"/>
     <child link="l_ankle_lateral_link"/>
     <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="5.0" friction="0.1"/>
   </joint>
   <gazebo reference="l_ankle_lateral_joint">
     <kp>1000000.0</kp>
@@ -1583,18 +1740,20 @@
 
 
   <!-- ros2_control configuration -->
-  <ros2_control name="GazeboSystem" type="system">
+  <ros2_control name="GazeboSimSystem" type="system">
     <hardware>
       <plugin>gz_ros2_control/GazeboSimSystem</plugin>
     </hardware>
-    
 
     <!-- Right Arm -->
     <joint name="r_shoulder_swing_joint">
       <!--param name="id">1</param-->
       <command_interface name="position"/>
       <!--command_interface name="velocity"/-->
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1603,7 +1762,10 @@
     <joint name="l_shoulder_swing_joint">
       <!--param name="id">2</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1611,7 +1773,10 @@
     <joint name="r_shoulder_lateral_joint">
       <!--param name="id">3</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1619,7 +1784,10 @@
     <joint name="l_shoulder_lateral_joint">
       <!--param name="id">4</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1627,7 +1795,10 @@
     <joint name="r_elbow_joint">
       <!--param name="id">5</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1635,7 +1806,10 @@
     <joint name="l_elbow_joint">
       <!--param name="id">6</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1644,7 +1818,10 @@
     <joint name="r_hip_twist_joint">
       <!--param name="id">7</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1652,77 +1829,110 @@
     <joint name="l_hip_twist_joint">
       <!--param name="id">8</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="r_hip_lateral_joint">
       <!--param name="id">9</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="l_hip_lateral_joint">
       <!--param name="id">10</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="r_hip_swing_joint">
       <!--param name="id">11</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="l_hip_swing_joint">
       <!--param name="id">12</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="r_knee_joint">
       <!--param name="id">13</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="l_knee_joint">
       <!--param name="id">14</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="r_ankle_swing_joint">
       <!--param name="id">15</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="l_ankle_swing_joint">
       <!--param name="id">16</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="r_ankle_lateral_joint">
       <!--param name="id">17</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
     <joint name="l_ankle_lateral_joint">
       <!--param name="id">18</param-->
       <command_interface name="position"/>
-      <state_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <!--state_interface name="position"/-->
       <state_interface name="velocity"/>
       <!--state_interface name="effort"/-->
     </joint>
@@ -1731,10 +1941,9 @@
   
   <gazebo>
     <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-      <ros>
+      <!--ros>
         <namespace>/typea</namespace>
-        <!--parameter>use_sim_time:=true</parameter-->
-      </ros>
+      </ros-->
       <parameters>/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_gazebo/config/gazebo_ros2_control.yaml</parameters>
     </plugin>
   </gazebo>

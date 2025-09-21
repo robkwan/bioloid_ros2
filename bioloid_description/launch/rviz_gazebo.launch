@@ -11,7 +11,7 @@ def generate_launch_description():
     pkg_share = get_package_share_directory('bioloid_description')
     
     # Read URDF file
-    urdf_file_path = os.path.join(pkg_share, 'urdf', 'part3_typea.urdf')
+    urdf_file_path = os.path.join(pkg_share, 'urdf', 'typea.urdf')
     with open(urdf_file_path, 'r') as file:
         robot_description_content = file.read()
     

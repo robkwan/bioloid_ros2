@@ -35,13 +35,13 @@ def generate_launch_description():
     
     bioloid_gazebo_dir = FindPackageShare('bioloid_gazebo')
 
-    world_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'empty.sdf'])
+    world_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'empty_no_gravity.sdf'])
     
-    sdf_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'part2_typea.sdf'])  # Adjust the path to your SDF file
+    #sdf_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'part2_typea.sdf'])  # Adjust the path to your SDF file
   
     # Get absolute paths
     bioloid_description_dir = get_package_share_directory('bioloid_description')
-    urdf_file = Path(bioloid_description_dir) / 'urdf' / 'part2_typea.urdf'
+    urdf_file = Path(bioloid_description_dir) / 'urdf' / 'typea_cmdpos.urdf'
 
     with open(urdf_file, 'r') as f:
         urdf_content = f.read()

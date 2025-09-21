@@ -35,13 +35,13 @@ def generate_launch_description():
     
     bioloid_gazebo_dir = FindPackageShare('bioloid_gazebo')
 
-    world_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'empty3.sdf'])
+    world_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'empty_with_gravity.sdf'])
     
     #sdf_file = PathJoinSubstitution([bioloid_gazebo_dir, 'worlds', 'part3_typea.sdf'])  # Adjust the path to your SDF file
   
     # Get absolute paths
     bioloid_description_dir = get_package_share_directory('bioloid_description')
-    urdf_file = Path(bioloid_description_dir) / 'urdf' / 'part3_typea.urdf'
+    urdf_file = Path(bioloid_description_dir) / 'urdf' / 'typea_gz_ros2ctl.urdf'
 
     with open(urdf_file, 'r') as f:
         urdf_content = f.read()
@@ -108,7 +108,7 @@ def generate_launch_description():
         package='robot_state_publisher',
         executable='robot_state_publisher',
         name='robot_state_publisher',
-        namespace='typea',
+        #namespace='typea',
         output='screen',
         parameters=[{'robot_description': robot_description},
                     {'use_sim_time': LaunchConfiguration('use_sim_time')}]
@@ -117,7 +117,7 @@ def generate_launch_description():
     spawn_robot = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-topic', '/typea/robot_description', '-name', 'typea', 
+        arguments=['-topic', '/robot_description', '-name', 'typea', 
                    '-z', '0.29', '-Y', '3.1416', 
                    '-joint_names', ','.join(joint_names),
                    '-joint_positions', ','.join(joint_positions)
@@ -135,6 +135,7 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                   '/imu@sensor_msgs/msg/Imu@gz.msgs.IMU',
                    #'/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
                    #'/r_shoulder_swing_joint/cmd_pos@std_msgs/msg/Float64]gz.msgs.Double',
                    #'/l_shoulder_swing_joint/cmd_pos@std_msgs/msg/Float64]gz.msgs.Double',
@@ -208,7 +209,7 @@ def generate_launch_description():
     controller_manager = Node(
         package='controller_manager',
         executable='ros2_control_node',
-        namespace='typea',
+        #namespace='typea',
         parameters=[
             {'robot_description': robot_description},
             {'use_sim_time': LaunchConfiguration('use_sim_time')},
@@ -221,8 +222,8 @@ def generate_launch_description():
         package='controller_manager',
         executable='spawner',
         #namespace='typea',
-        arguments=['joint_state_broadcaster', '-c', '/typea/controller_manager',
-                   "--controller-manager-timeout", "120", "--switch-timeout", "100",
+        arguments=['joint_state_broadcaster', 
+                   '--controller-manager-timeout', '120', '--switch-timeout', '100',
                    #'--param-file', '/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_gazebo/config/gazebo_ros2_control.yaml'
                    ],
     )
@@ -231,8 +232,8 @@ def generate_launch_description():
         executable='spawner',
         #namespace='typea',
         arguments=[
-            'joint_trajectory_controller',  '--controller-manager', '/typea/controller_manager',
-            "--controller-manager-timeout", "120", "--switch-timeout", "100",
+            'joint_trajectory_controller',  
+            '--controller-manager-timeout', '120', '--switch-timeout', '100',
             '--param-file', '/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_gazebo/config/gazebo_ros2_control.yaml'
             ],
     )
@@ -271,24 +272,35 @@ def generate_launch_description():
         use_sim_time_arg,
         set_resource_env,
         gazebo_launch,
-        spawn_robot,
-        #delayed_spawn,
-        #bridge,
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=spawn_robot,
+                on_exit=[joint_state_broadcaster_spawner],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=joint_state_broadcaster_spawner,
+                on_exit=[joint_trajectory_controller_spawner],
+            )
+        ),        
+        bridge,
+        robot_state_publisher,    
+        #spawn_robot,
+        delayed_spawn,
         #bridge_joint_states,
         #bridge_joint_commands,
-        robot_state_publisher,
         #delayed_controller_manager,
         #controller_manager,
         #joint_state_broadcaster_spawner,
         #joint_trajectory_controller_spawner,
-        delayed_joint_state_broadcaster,
-        delayed_joint_trajectory_controller,
+        #delayed_joint_state_broadcaster,
+        #delayed_joint_trajectory_controller,
         #anti_gravity_node,
         #trajectory_node
         #hold_node
         #joint_setter,
-        bridge,        
-        # Wait 10 seconds for Gazebo and the robot_state_publisher to be fully ready
+         # Wait 10 seconds for Gazebo and the robot_state_publisher to be fully ready
         #TimerAction(
         #    period=15.0,
         #    actions=[

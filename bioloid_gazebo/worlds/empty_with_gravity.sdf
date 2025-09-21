@@ -4,10 +4,15 @@
 
     <!-- Physics settings: DART -->
     <physics name="dart_physics" type="dart">
-      <max_step_size>0.001</max_step_size>       <!-- small step for stability -->
+      <max_step_size>0.002</max_step_size>       <!-- small step for stability -->
       <real_time_factor>1.0</real_time_factor>   <!-- run in real time -->
+      <real_time_update_rate>500</real_time_update_rate>
       <dart>
         <collision_detector>fcl</collision_detector>
+        <solver>
+          <num_iterations>20</num_iterations>       <!-- Increase solver iterations -->
+          <time_step>0.002</time_step>              <!-- Must match max_step_size -->
+        </solver>
       </dart>
     </physics>
 
@@ -21,7 +26,7 @@
     </plugin>
     
     <!-- Need to set this gravity under the world level not inside physics, nor plugin -->
-    <gravity>0 0 -0.0001</gravity>
+    <gravity>0 0 -9.81</gravity>
 
     <!-- Scene / rendering -->
     <plugin
@@ -35,6 +40,27 @@
       name="gz::sim::systems::UserCommands">
     </plugin>
 
+    <plugin
+      filename="gz-sim-contact-system"
+      name="gz::sim::systems::Contact">
+      <friction>
+        <coefficient>1.0</coefficient>
+        <mu2>1.0</mu2>
+      </friction>
+    </plugin>
+    
+    
+    <plugin
+      filename="gz-sim-forcetorque-system"
+      name="gz::sim::systems::ForceTorque">
+    </plugin>
+    
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+    </plugin>
+
+    
     <!-- Sun light -->
     <light type="directional" name="sun">
       <cast_shadows>true</cast_shadows>
@@ -61,6 +87,21 @@
               <size>5 5</size>
             </plane>
           </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>       <!-- Static friction -->
+                <mu2>1.0</mu2>      <!-- Dynamic friction -->
+              </ode>
+            </friction>
+            <contact>
+              <collide_without_contact>false</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <bounce>
+                <coefficient>0.0</coefficient> <!-- No bounce! -->
+              </bounce>
+            </contact>
+          </surface>
         </collision>
         <visual name="visual">
           <geometry>
