@@ -425,11 +425,11 @@
       <origin xyz="0.0162019036 0.0049844800 0.0038595353"/>
       <inertia ixx="0.9787053684" ixy="0.0543464614" ixz="-0.0262073548" iyy="0.9730952674" iyz="0.0198675713" izz="0.9352573858"/>
     </inertial-->
-    <inertial>
+    <!--inertial>
       <mass value="0.25"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.00026" ixy="0" ixz="0" iyy="0.00026" iyz="0" izz="0.00042"/>
-    </inertial>
+    </inertial-->
   </link>
 
   <!-- Add a "world" link -->
@@ -465,6 +465,16 @@
         <box size="0.1 0.1 0.1"/>
       </geometry>
     </visual-->
+    <!-- Enable force/torque publishing -->
+    <sensor name="force_torque" type="force_torque">
+      <force_torque>
+        <frame>sensor</frame>
+        <measure_direction>parent_to_child</measure_direction>
+      </force_torque>
+      <always_on>1</always_on>
+      <update_rate>1000</update_rate>
+      <topic>/model/typea/link/base_link/wrench</topic>
+    </sensor>
   </link>
 
   <!-- IMU -->
@@ -490,11 +500,11 @@
         <box size=".01 .01 .01"/>
       </geometry>
     </collision>
-    <inertial>
+    <!--inertial>
       <mass value="0.001"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
-    </inertial>
+    </inertial-->
   </link>
   <gazebo reference="imu_link">
     <sensor name="imu_sensor" type="imu">
