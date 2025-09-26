@@ -371,27 +371,28 @@ class AllJointsTest(Node):
             self.get_logger().error("Goal was rejected!")
             return None
 
-    def execute_motion_sequence_from_file(self, motion_file_path):
+    def execute_motion_sequence_from_file(self, motion_file_path, apply_settings=True):
         """
         Execute a single motion file.
+        If apply_settings=True, set compliance and play params from the motion file.
         """
         # Load the motion file
         self.set_motion_file(motion_file_path)
-        
+    
         # Print motion info
         motion_info = self.get_motion_info()
         self.get_logger().info(f"Executing motion: {motion_info['name']}")
         self.get_logger().info(f"  Steps: {motion_info['num_steps']}")
         self.get_logger().info(f"  File: {motion_info['file_path']}")
+
+        # Only apply compliance and play_param if requested
+        if apply_settings:
+            if self.compliance: 
+                self.get_logger().info("Setting compliance values from motion file...")
+                self.set_compliance_values(self.compliance)
         
-        
-        # Set compliance values if available
-        if self.compliance: 
-            self.get_logger().info("Setting compliance values from motion file...")
-            self.set_compliance_values(self.compliance)
-         
-        if self.play_param:
-            self.set_play_param_values(self.play_param, speed_only=True, use_baseline=True)
+            if self.play_param:
+                self.set_play_param_values(self.play_param, speed_only=True, use_baseline=True)
 
         # Execute the motion sequence
         self.execute_motion_sequence()
@@ -399,37 +400,37 @@ class AllJointsTest(Node):
     def execute_motion_list(self, motion_files, base_path, delay_between_motions=1.0):
         """
         Execute a sequence of motion files with delays between them.
+        Compliance/play_params applied only once from the first motion.
         """
         total_motions = len(motion_files)
         self.get_logger().info(f"Starting motion sequence with {total_motions} motion files...")
-        
+
         for i, motion_filename in enumerate(motion_files):
             self.get_logger().info(f"=== Motion {i+1}/{total_motions}: {motion_filename} ===")
-            
-            # Construct full path
+        
             motion_file_path = os.path.join(base_path, motion_filename)
-            
-            # Check if file exists
+        
             if not os.path.isfile(motion_file_path):
                 self.get_logger().error(f"Motion file not found: {motion_file_path}")
                 self.get_logger().error("Skipping this motion...")
                 continue
-            
-            # Execute the motion
+        
             try:
-                self.execute_motion_sequence_from_file(motion_file_path)
+                # Apply compliance/play_param only for the first motion
+                apply_settings = (i == 0)
+                self.execute_motion_sequence_from_file(motion_file_path, apply_settings=apply_settings)
                 self.get_logger().info(f"Completed motion: {motion_filename}")
             except Exception as e:
                 self.get_logger().error(f"Error executing motion {motion_filename}: {e}")
                 self.get_logger().error("Continuing with next motion...")
                 continue
-            
-            # Delay between motions (except after the last one)
+        
             if i < total_motions - 1 and delay_between_motions > 0:
                 self.get_logger().info(f"Waiting {delay_between_motions:.1f}s before next motion...")
                 time.sleep(delay_between_motions)
-        
+
         self.get_logger().info("All motions in sequence completed!")
+
 
     def execute_motion_sequence(self):
         """
