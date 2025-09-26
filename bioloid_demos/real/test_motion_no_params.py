@@ -12,21 +12,11 @@ import os
 import sys
 
 # Dynamixel SDK imports
-#from dynamixel_sdk import PortHandler, PacketHandler
-
-from dynamixel_interfaces.srv import SetDataToDxl, GetDataFromDxl
+from dynamixel_sdk import PortHandler, PacketHandler
 
 class AllJointsTest(Node):
     def __init__(self):
         super().__init__('all_joints_test')
-
-        self._set_dxl_client = self.create_client(SetDataToDxl, '/dynamixel_hardwareInterface/set_dxl_data')
-        self._get_dxl_client = self.create_client(GetDataFromDxl, '/dynamixel_hardwareInterface/get_dxl_data')
-
-        while not self._set_dxl_client.wait_for_service(timeout_sec=2.0):
-            self.get_logger().info('Waiting for set_dxl_data service...')
-        while not self._get_dxl_client.wait_for_service(timeout_sec=2.0):
-            self.get_logger().info('Waiting for get_dxl_data service...')
 
         # Action client for joint trajectory controller
         self._action_client = ActionClient(
@@ -87,7 +77,11 @@ class AllJointsTest(Node):
         self.ADDR_CW_SLOPE = 28
         self.ADDR_CCW_SLOPE = 29
         self.JOINT_IDS = list(range(1, 19))  # IDs of all 18 motors
-      
+        
+        # Initialize Dynamixel communication
+        self.portHandler = None
+        self.packetHandler = None
+        self.dynamixel_enabled = False
         
         # Define the motion sequence
         # Format: [dummy, joint1...joint18, skip7, pause_duration, pose_duration]
@@ -99,149 +93,69 @@ class AllJointsTest(Node):
         self.compliance = []
         self.play_param = []
 
-    def set_dxl_item(self, dxl_id, item_name, value):
+    def initialize_dynamixel(self, port='/dev/ttyUSB0', baudrate=1000000):
+        """
+        Initialize Dynamixel communication.
+        """
         try:
-            req = SetDataToDxl.Request()
-            req.id = dxl_id
-            req.item_name = item_name
-            req.item_data = value
-
-            future_set = self._set_dxl_client.call_async(req)
-
-            rclpy.spin_until_future_complete(self, future_set)
-            # Wait until the service call completes
-            #while rclpy.ok() and not future_set.done():
-            #    rclpy.spin_once(self, timeout_sec=0.05)
-        
-            # Delay a bit after each write
-            #time.sleep(1.0)
-
-            if not future_set.result() or not future_set.result().result:
-                self.get_logger().error(f"Failed to set {item_name} on ID {dxl_id}")
-                return False
-
-            # Optional: verify with get
-            get_req = GetDataFromDxl.Request()
-            get_req.id = dxl_id
-            get_req.item_name = item_name
-
-            future_get = self._get_dxl_client.call_async(get_req)
-            rclpy.spin_until_future_complete(self, future_get)
-            #while rclpy.ok() and not future_get.done():
-            #    rclpy.spin_once(self, timeout_sec=0.05)
-
-            # Delay a bit after each write
-            #time.sleep(5.0)
-
-            if future_get.done() and future_get.result() and future_get.result().result:
-                read_value = future_get.result().item_data
-                if read_value == value:
-                    self.get_logger().info(f"[OK] {item_name}={value} confirmed for ID {dxl_id}")
-                    return True
-                else:
-                    self.get_logger().warn(f"[MISMATCH] ID {dxl_id} {item_name}: wrote {value}, read back {read_value}")
-                    return False
+            self.portHandler = PortHandler(port)
+            self.packetHandler = PacketHandler(1)  # Protocol 1.0
+            
+            if self.portHandler.openPort() and self.portHandler.setBaudRate(baudrate):
+                self.get_logger().info(f"Dynamixel port opened successfully: {port}")
+                self.dynamixel_enabled = True
+                return True
             else:
-                self.get_logger().error(f"Failed to read back {item_name} from ID {dxl_id}")
+                self.get_logger().error(f"Failed to open Dynamixel port: {port}")
                 return False
-        
-            #resp = future_get.result()
-            #if resp.result and resp.item_data == value:
-            #    self.get_logger().info(f"{item_name} successfully set to {value} on ID {dxl_id}")
-            #    return True
-
-            #self.get_logger().warn(f"{item_name} value not verified for ID {dxl_id}")
-            #return False
-
+                
         except Exception as e:
-            # Now the exception will catch everything safely
-            self.get_logger().error(f"Exception in set_dxl_item for ID {dxl_id}: {e}")
+            self.get_logger().error(f"Error initializing Dynamixel: {e}")
             return False
 
+    def close_dynamixel(self):
+        """
+        Close Dynamixel communication.
+        """
+        if self.portHandler and self.dynamixel_enabled:
+            self.portHandler.closePort()
+            self.get_logger().info("Dynamixel port closed")
 
-    def get_dxl_item(self, dxl_id, item_name):
-        req = GetDataFromDxl.Request()
-        req.id = dxl_id
-        req.item_name = item_name
-        future = self._get_dxl_client.call_async(req)
-        
-        rclpy.spin_until_future_complete(self, future)
-        #while rclpy.ok() and not future.done():
-        #    rclpy.spin_once(self, timeout_sec=0.1)
-        
-        if future.result() and future.result().result:
-            value = future.result().item_data
-            self.get_logger().info(f"Got {item_name}={value} from ID {dxl_id}")
-            return value
+    def get_comm_result_string(self, comm_result):
+        """
+        Get human-readable string for communication result.
+        """
+        if hasattr(self.packetHandler, 'getTxRxResult'):
+            return self.packetHandler.getTxRxResult(comm_result)
         else:
-            self.get_logger().error(f"Failed to read {item_name} from ID {dxl_id}")
-            return None
+            return f"Communication result: {comm_result}"
 
-    def set_play_param_values(self, play_param, speed_only=False, use_baseline=True):
+    def get_error_string(self, error):
         """
-        Set play parameter values for all servos.
-        play_param format: [param1, param2, param3, speed_factor, torque_factor]
-        - speed_factor (4th param): multiply original MOVING_SPEED value
-        - torque_factor (5th param): multiply by 8 and set as TORQUE_LIMIT
+        Get human-readable string for Dynamixel error.
         """
-        if len(play_param) < 5:
-            self.get_logger().warn(
-                f"Play param too short ({len(play_param)}), padding with defaults"
+        if hasattr(self.packetHandler, 'getRxPacketError'):
+            return self.packetHandler.getRxPacketError(error)
+        else:
+            return f"Dynamixel error: {error}"
+
+    def test_servo_communication(self, servo_id):
+        """
+        Test if we can communicate with a specific servo by reading its model number.
+        """
+        try:
+            # Try to read model number (address 0, 2 bytes)
+            model_number, dxl_comm_result, dxl_error = self.packetHandler.read2ByteTxRx(
+                self.portHandler, servo_id, 0
             )
-            while len(play_param) < 5:
-                play_param.append(1.0 if len(play_param) == 3 else 32)
-
-        speed_factor = float(play_param[3])
-        torque_factor = int(play_param[4])
-        baseline_speed = 100
-
-        self.get_logger().info(
-            f"Applying play params: speed_factor={speed_factor}, torque_factor={torque_factor}"
-        )
-
-        for dxl_id in range(1, 19):
-            try:
-                # Read current speed
-                original_speed = self.get_dxl_item(dxl_id, "Moving_Speed")
-
-                # Handle 0 speed case
-                if original_speed == 0 and use_baseline:
-                    effective_speed = baseline_speed
-                else:
-                    effective_speed = original_speed
-
-                new_speed = int(effective_speed * speed_factor)
-                new_speed = max(0, min(1023, new_speed))
-
-                try:
-                    # Write to Moving_Speed register
-                    if not self.set_dxl_item(dxl_id, "Moving_Speed", new_speed):
-                        self.get_logger().warn(f"Failed to write Movind_Speed for ID {dxl_id}")
-                        continue
-
-                    self.get_logger().info(f"? Successfully set moving_speed for ID {dxl_id}")
-
-                except Exception as e:
-                    self.get_logger().error(f"Exception setting moving_speed for ID {dxl_id}: {e}")
-                    continue
-
-                # Torque (optional)
-                torque_limit = torque_factor * 8
-                torque_limit = max(0, min(1023, torque_limit))
-                #dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(
-                #    self.portHandler, dxl_id, 34, torque_limit
-                #)
-
-                #if dxl_comm_result != 0 or dxl_error != 0:
-                #    self.get_logger().warn(f"Failed to write torque for ID {dxl_id}")
-                #    continue
-
-                self.get_logger().info(f"ID {dxl_id:2d}: speed {original_speed} → {new_speed}, torque={torque_limit}"
-                )
-
-            except Exception as e:
-                self.get_logger().error(f"Exception on ID {dxl_id}: {e}")
-
+            
+            if dxl_comm_result == 0 and dxl_error == 0:
+                return True, model_number
+            else:
+                return False, f"Comm: {self.get_comm_result_string(dxl_comm_result)}, Error: {self.get_error_string(dxl_error)}"
+                
+        except Exception as e:
+            return False, str(e)
 
     def set_compliance_values(self, compliance_values):
         """
@@ -249,6 +163,9 @@ class AllJointsTest(Node):
         Similar to step data: skip index 0 (dummy), use indices [1:19] for servo IDs 1-18.
         Each value represents a power of 2 to be written to CW_SLOPE and CCW_SLOPE.
         """
+        if not self.dynamixel_enabled:
+            self.get_logger().warn("Dynamixel not initialized, skipping compliance setting")
+            return False
 
         if len(compliance_values) < 19:
             self.get_logger().error(f"Compliance array length ({len(compliance_values)}) is too short, need at least 19 elements")
@@ -260,6 +177,16 @@ class AllJointsTest(Node):
         if len(compliance_servo_values) != len(self.JOINT_IDS):
             self.get_logger().error(f"Compliance servo values length ({len(compliance_servo_values)}) doesn't match joint count ({len(self.JOINT_IDS)})")
             return False
+
+        # Test communication with a few servos first
+        self.get_logger().info("Testing servo communication...")
+        for test_id in [1, 9, 18]:  # Test a few representative servos
+            if test_id <= len(self.JOINT_IDS):
+                success, result = self.test_servo_communication(test_id)
+                if success:
+                    self.get_logger().info(f"Servo ID {test_id} communication OK (Model: {result})")
+                else:
+                    self.get_logger().warn(f"Servo ID {test_id} communication failed: {result}")
 
         success_count = 0
         for i, compliance_power in enumerate(compliance_servo_values):
@@ -275,13 +202,25 @@ class AllJointsTest(Node):
             
             try:
                 # Write to CW_SLOPE register
-                if not self.set_dxl_item(dxl_id, "CW_Compliance_Slope", slope_value):
-                    self.get_logger().warn(f"Failed to write CW_Compliance_Slope for ID {dxl_id}")
+                dxl_comm_result, dxl_error = self.packetHandler.write1ByteTxRx(
+                    self.portHandler, dxl_id, self.ADDR_CW_SLOPE, slope_value
+                )
+                
+                if dxl_comm_result != 0 or dxl_error != 0:
+                    comm_msg = self.get_comm_result_string(dxl_comm_result)
+                    error_msg = self.get_error_string(dxl_error)
+                    self.get_logger().warn(f"Failed to write CW_SLOPE for ID {dxl_id}: Comm={comm_msg}, Error={error_msg}")
                     continue
-
+                
                 # Write to CCW_SLOPE register
-                if not self.set_dxl_item(dxl_id, "CCW_Compliance_Slope", slope_value):
-                    self.get_logger().warn(f"Failed to write CCW_Compliance_Slope for ID {dxl_id}")
+                dxl_comm_result, dxl_error = self.packetHandler.write1ByteTxRx(
+                    self.portHandler, dxl_id, self.ADDR_CCW_SLOPE, slope_value
+                )
+                
+                if dxl_comm_result != 0 or dxl_error != 0:
+                    comm_msg = self.get_comm_result_string(dxl_comm_result)
+                    error_msg = self.get_error_string(dxl_error)
+                    self.get_logger().warn(f"Failed to write CCW_SLOPE for ID {dxl_id}: Comm={comm_msg}, Error={error_msg}")
                     continue
                 
                 success_count += 1
@@ -384,15 +323,11 @@ class AllJointsTest(Node):
         self.get_logger().info(f"  Steps: {motion_info['num_steps']}")
         self.get_logger().info(f"  File: {motion_info['file_path']}")
         
-        
         # Set compliance values if available
-        if self.compliance: 
-            self.get_logger().info("Setting compliance values from motion file...")
-            self.set_compliance_values(self.compliance)
-         
-        if self.play_param:
-            self.set_play_param_values(self.play_param, speed_only=True, use_baseline=True)
-
+        #if self.compliance and self.dynamixel_enabled:
+        #    self.get_logger().info("Setting compliance values from motion file...")
+        #    self.set_compliance_values(self.compliance)
+        
         # Execute the motion sequence
         self.execute_motion_sequence()
 
@@ -792,7 +727,7 @@ def main():
             print(f"  File: {motion_info['file_path']}\n")
             
             # Execute single motion
-            node.execute_motion_sequence_from_file(motion_file_path)
+            node.execute_motion_sequence()
         
         node.get_logger().info("Motion execution completed!")
         

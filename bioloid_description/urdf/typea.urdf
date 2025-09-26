@@ -1325,6 +1325,7 @@
       <param name="baud_rate">1000000</param>
       <param name="number_of_joints">18</param>
       <param name="protocol_version">1.0</param>
+      <param name="use_dummy">false</param>
  
       <!--param name="number_of_transmissions">18</param>
       <param name="disable_torque_at_init">true</param>
@@ -1367,12 +1368,12 @@
       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,
       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,
       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-      </param>
+      </param-->
 
-      <param name="dynamixel_state_pub_msg_name">dynamixel_hardwareInterface/dxl_state</param>
+      <!--param name="dynamixel_state_pub_msg_name">dynamixel_hardwareInterface/dxl_state</param-->
       <param name="get_dynamixel_data_srv_name">dynamixel_hardwareInterface/get_dxl_data</param>
       <param name="set_dynamixel_data_srv_name">dynamixel_hardwareInterface/set_dxl_data</param>
-      <param name="reboot_dxl_srv_name">dynamixel_hardwareInterface/reboot_dxl</param>
+      <!--param name="reboot_dxl_srv_name">dynamixel_hardwareInterface/reboot_dxl</param>
       <param name="set_dxl_torque_srv_name">dynamixel_hardwareInterface/set_dxl_torque</param-->
     </hardware>
     
