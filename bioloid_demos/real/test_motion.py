@@ -87,8 +87,9 @@ class AllJointsTest(Node):
         self.ADDR_CW_SLOPE = 28
         self.ADDR_CCW_SLOPE = 29
         self.JOINT_IDS = list(range(1, 19))  # IDs of all 18 motors
-      
-        
+
+        self._moving_speed_reset_done = False
+
         # Define the motion sequence
         # Format: [dummy, joint1...joint18, skip7, pause_duration, pose_duration]
         self.motion_steps = []
@@ -176,6 +177,19 @@ class AllJointsTest(Node):
         else:
             self.get_logger().error(f"Failed to read {item_name} from ID {dxl_id}")
             return None
+
+    def reset_moving_speed(self, default_speed=100):
+        """
+        Reset Moving_Speed of all 18 servos to default_speed (default=100)
+        """
+        self.get_logger().info(f"Resetting all Moving_Speed registers to {default_speed}...")
+        for dxl_id in self.JOINT_IDS:
+            try:
+                if not self.set_dxl_item(dxl_id, "Moving_Speed", default_speed):
+                    self.get_logger().warn(f"Failed to reset Moving_Speed for ID {dxl_id}")
+            except Exception as e:
+                self.get_logger().error(f"Exception resetting Moving_Speed for ID {dxl_id}: {e}")
+        self.get_logger().info("All Moving_Speed registers reset.")
 
     def set_play_param_values(self, play_param, speed_only=False, use_baseline=True):
         """
@@ -376,6 +390,11 @@ class AllJointsTest(Node):
         Execute a single motion file.
         If apply_settings=True, set compliance and play params from the motion file.
         """
+        # Reset moving speed only once per .lst or first motion
+        if not self._moving_speed_reset_done:
+            self.reset_moving_speed(default_speed=100)
+            self._moving_speed_reset_done = True
+
         # Load the motion file
         self.set_motion_file(motion_file_path)
     
@@ -430,7 +449,7 @@ class AllJointsTest(Node):
                 time.sleep(delay_between_motions)
 
         self.get_logger().info("All motions in sequence completed!")
-
+        self._moving_speed_reset_done = False
 
     def execute_motion_sequence(self):
         """
