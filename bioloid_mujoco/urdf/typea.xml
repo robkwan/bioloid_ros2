@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="robotis_typea">
+  <compiler angle="radian" meshdir="meshes" coordinate="local" />
+  <asset>
+    <mesh name="8b120736_BPF-CHEST-F_FCD-Conv_BDR-Col" file="8b120736_BPF-CHEST-F_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="94afeb60_BPF-CHEST-B_FCD-Conv_BDR-Col" file="94afeb60_BPF-CHEST-B_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="df1d2ef7_CM-5_FCD-Conv_BDR-Col" file="df1d2ef7_CM-5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="2c813877_AX-S1_FCD-Conv_BDR-Col" file="2c813877_AX-S1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="3c0b5d99_AX-12_FCD-Conv_BDR-Col" file="3c0b5d99_AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" file="d8612dc6_FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" file="11c5acbd_FP04-F1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="5f501081_BPF-BU_FCD-Conv_BDR-Col" file="5f501081_BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" file="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col" file="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="abc2df66_FP04-F11_FCD-Conv_BDR-Col" file="abc2df66_FP04-F11_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="df207a8e_FP04-F5_FCD-Conv_BDR-Col" file="df207a8e_FP04-F5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="c44f3233_FP04-F6_FCD-Conv_BDR-Col" file="c44f3233_FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" file="4aa1180e_FP04-F7_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="9856e80b_FP04-F4_FCD-Conv_BDR-Col" file="9856e80b_FP04-F4_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="bc9e07fb_FP04-F12_FCD-Conv_BDR-Col" file="bc9e07fb_FP04-F12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="916d31db_Bioloid_CUERPO_vis_4" file="916d31db_Bioloid_CUERPO_vis_4.stl" scale="1.0 1.0 1.0" />
+    <mesh name="fe3dec6d_Bioloid_CUERPO_vis_2" file="fe3dec6d_Bioloid_CUERPO_vis_2.stl" />
+  </asset>
+  <default>
+    <mesh scale="0.001 0.001 0.001" />
+    <geom rgba="0.7 0.7 0.7 1.0" />
+    <joint damping="0.5" frictionloss="0.03" />
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="1" />
+    </default>
+  </default>
+  <worldbody>
+    <body name="base_link" pos="0 0 0" euler="0 0 0">
+      <body name="torso_link" pos="0 0 0" euler="0 0 0">
+        <inertial pos="-0.0141 0 -0.0199" euler="0 0 0" mass="0.411" diaginertia="7.8941435e-04 7.0070709e-04 5.6784609e-04" />
+        <geom mesh="8b120736_BPF-CHEST-F_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="1.5707963267948966 0 1.5707963267948966" class="visual" />
+        <geom mesh="94afeb60_BPF-CHEST-B_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="1.5707963267948966 0 1.5707963267948966" class="visual" />
+        <geom mesh="df1d2ef7_CM-5_FCD-Conv_BDR-Col" type="mesh" pos="-0.032 0 -0.015" euler="0 3.141592653589793 1.5707963267948966" class="visual" />
+        <geom mesh="2c813877_AX-S1_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.025" euler="-1.5707963267948966 0 -1.5707963267948966" class="visual" />
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.032 0" euler="1.5707963267948966 0 0" class="visual" />
+        <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="-0.019 -0.032 -0.0145" euler="3.141592653589793 -1.5707963267948966 1.5707963267948966" class="visual" />
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0.032 0" euler="1.5707963267948966 0 3.141592653589793" class="visual" />
+        <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="-0.019 0.032 -0.0145" euler="3.141592653589793 -1.5707963267948966 1.5707963267948966" class="visual" />
+        <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0175 0 -0.0655" euler="0 0 1.5707963267948966" class="visual" />
+        <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="-0.0175 0 -0.0655" euler="0 0 -1.5707963267948966" class="visual" />
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.0385 -0.0655" euler="0 3.141592653589793 3.141592653589793" class="visual" />
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0.0385 -0.0655" euler="0 3.141592653589793 0" class="visual" />
+        <geom type="box" size="0.027 0.0165 0.022" pos="-0.0122 0 0.035" euler="0 0 0" contype="1" conaffinity="1" />
+        <geom type="box" size="0.04525 0.0515 0.03175" pos="-0.019 0 -0.015" euler="0 0 0" contype="1" conaffinity="1" />
+        <geom type="box" size="0.0325 0.0495 0.0215" pos="-0.00625 0 -0.0648" euler="0 0 0" contype="1" conaffinity="1" />
+        <body name="r_shoulder_swing_link" pos="0 -0.032 0" euler="1.5707963267948966 1.5707963267948966 0">
+          <inertial pos="0 0.006 0.0375" euler="0 0 0" mass="0.010" diaginertia="2.35e-06 3.33e-06 3.52e-06" />
+          <geom mesh="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" type="mesh" pos="0 0.014 0.044" euler="0 3.141592653589793 3.141592653589793" class="visual" />
+          <geom type="box" size="0.026 0.0195 0.018" pos="0 0.006 0.0375" euler="0 0 0" contype="1" conaffinity="1" />
+          <body name="r_upper_arm_link" pos="0 0.014 0.044" euler="0 -1.5707963267948966 0">
+            <inertial pos="0.03536 0 0" euler="0 0 0" mass="0.070" diaginertia="1.990e-05 5.746e-05 5.024e-05" />
+            <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="0 0 1.5707963267948966" class="visual" />
+            <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0185" euler="-1.5707963267948966 0 1.5707963267948966" class="visual" />
+            <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.019" euler="-1.5707963267948966 0 1.5707963267948966" class="visual" />
+            <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="0 0 1.5707963267948966" class="visual" />
+            <geom mesh="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col" type="mesh" pos="0.0675 0 0" euler="-1.5707963267948966 1.5707963267948966 1.5707963267948966" class="visual" />
+            <geom type="box" size="0.027 0.0165 0.022" pos="0.0148 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+            <geom type="box" size="0.0235 0.0165 0.026" pos="0.0555 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+            <body name="r_lower_arm_link" pos="0.0675 0 0" euler="0 0 0">
+              <inertial pos="-0.0009848283 -0.0081892817 -0.0005847510" euler="0 0 0" mass="0.060" diaginertia="1.51e-5 4.38e-5 3.96e-5" />
+              <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="0 0 1.5707963267948966" class="visual" />
+              <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0185" euler="-1.5707963267948966 0 1.5707963267948966" class="visual" />
+              <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.019" euler="-1.5707963267948966 0 1.5707963267948966" class="visual" />
+              <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="0 0 1.5707963267948966" class="visual" />
+              <geom type="box" size="0.029 0.0165 0.022" pos="0.017 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+              <body name="r_hand_link" pos="0 0 0" euler="0 0 0">
+                <inertial pos="0.05455 0.00385 0" euler="0 0 0" mass="0.008" diaginertia="2.2e-6 5.2e-6 5.0e-6" />
+                <geom mesh="abc2df66_FP04-F11_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="3.141592653589793 -1.5707963267948966 0" class="visual" />
+                <geom type="box" size="0.00655 0.01325 0.022" pos="0.039 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+                <geom type="box" size="0.02875 0.00875 0.0175" pos="0.0701 -0.0077 0" euler="0 0 0" contype="1" conaffinity="1" />
+              </body>
+              <joint name="r_elbow_joint" pos="0 0 0" type="hinge" range="-1.77 1.77" axis="0 0 -1" />
+            </body>
+            <joint name="r_shoulder_lateral_joint" pos="0 0 0" type="hinge" range="-1.5 1.5" axis="0 0 -1" />
+          </body>
+          <joint name="r_shoulder_swing_joint" pos="0 0 0" type="hinge" range="-1 1.5707963267948966" axis="0 0 1" />
+        </body>
+        <body name="l_shoulder_swing_link" pos="0 0.032 0" euler="-1.5707963267948966 -1.5707963267948966 0">
+          <inertial pos="0 0.006 0.0375" euler="0 0 0" mass="0.010" diaginertia="2.35e-06 3.33e-06 3.52e-06" />
+          <geom mesh="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" type="mesh" pos="0 0.014 0.044" euler="0 3.141592653589793 3.141592653589793" class="visual" />
+          <geom type="box" size="0.026 0.0195 0.018" pos="0 0.006 0.0375" euler="0 0 0" contype="1" conaffinity="1" />
+          <body name="l_upper_arm_link" pos="0 0.014 0.044" euler="0 -1.5707963267948966 0">
+            <inertial pos="0.03536 0 0" euler="0 0 0" mass="0.070" diaginertia="1.99e-05 5.746e-05 5.024e-05" />
+            <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="3.141592653589793 0 -1.5707963267948966" class="visual" />
+            <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0185" euler="1.5707963267948966 0 1.5707963267948966" class="visual" />
+            <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.019" euler="1.5707963267948966 0 1.5707963267948966" class="visual" />
+            <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="3.141592653589793 0 -1.5707963267948966" class="visual" />
+            <geom mesh="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col" type="mesh" pos="0.0675 0 0" euler="1.5707963267948966 1.5707963267948966 -1.5707963267948966" class="visual" />
+            <geom type="box" size="0.027 0.0165 0.022" pos="0.0148 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+            <geom type="box" size="0.0235 0.0165 0.026" pos="0.0555 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+            <body name="l_lower_arm_link" pos="0.0675 0 0" euler="0 0 0">
+              <inertial pos="0.0000002032 0.0068291604 -0.0006710552" euler="0 0 0" mass="0.060" diaginertia="1.51e-5 4.38e-5 3.96e-5" />
+              <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="3.141592653589793 0 -1.5707963267948966" class="visual" />
+              <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0185" euler="1.5707963267948966 0 1.5707963267948966" class="visual" />
+              <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.019" euler="1.5707963267948966 0 1.5707963267948966" class="visual" />
+              <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="3.141592653589793 0 -1.5707963267948966" class="visual" />
+              <geom type="box" size="0.029 0.0165 0.022" pos="0.017 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+              <body name="l_hand_link" pos="0 0 0" euler="0 0 0">
+                <inertial pos="0.05455 -0.00385 0" euler="0 0 0" mass="0.008" diaginertia="2.2e-6 5.2e-6 5.0e-6" />
+                <geom mesh="abc2df66_FP04-F11_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="0 -1.5707963267948966 3.141592653589793" class="visual" />
+                <geom type="box" size="0.00655 0.01325 0.022" pos="0.039 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+                <geom type="box" size="0.02875 0.00875 0.0175" pos="0.0701 -0.0077 0" euler="0 0 0" contype="1" conaffinity="1" />
+              </body>
+              <joint name="l_elbow_joint" pos="0 0 0" type="hinge" range="-1.77 1.77" axis="0 0 1" />
+            </body>
+            <joint name="l_shoulder_lateral_joint" pos="0 0 0" type="hinge" range="-1.5 1.5" axis="0 0 1" />
+          </body>
+          <joint name="l_shoulder_swing_joint" pos="0 0 0" type="hinge" range="-1 1.5707963267948966" axis="0 0 1" />
+        </body>
+        <body name="r_hip_twist_link" pos="0 -0.0385 -0.0655" euler="0 3.141592653589793 0.788">
+          <inertial pos="0.0008 0.02 0.041" euler="0 0 0" mass="0.016" diaginertia="1.1372e-05 3.3083e-06 1.0307e-05" />
+          <geom mesh="df207a8e_FP04-F5_FCD-Conv_BDR-Col" type="mesh" pos="0 0.02 0.05" euler="3.141592653589793 0 3.141592653589793" class="visual" />
+          <geom type="box" size="0.0145 0.0415 0.02025" pos="0.0008 0.02 0.041" euler="0 0 0" contype="1" conaffinity="1" />
+          <body name="r_hip_lateral_link" pos="0 0 0.05" euler="-1.5707963267948966 0 0">
+            <inertial pos="0 -0.0135 0.02" euler="0 0 0" mass="0.120" diaginertia="7.79941e-05 6.79841e-05 4.20099e-05" />
+            <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0353" euler="0 0 -0.0" class="visual" />
+            <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="-0.019 -0.0145 0.0513" euler="0 -1.5707963267948966 -1.5707963267948966" class="visual" />
+            <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="0.019 -0.0145 0.0513" euler="0 -1.5707963267948966 1.5707963267948966" class="visual" />
+            <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0032999999999999974" euler="-0.0 -1.5707963267948966 0" class="visual" />
+            <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.014700000000000005" euler="-1.5707963267948966 -0.0 0" class="visual" />
+            <geom mesh="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.0145 -0.0157" euler="1.5707963267948966 -0.0 1.5707963267948966" class="visual" />
+            <geom type="box" size="0.02 0.0255 0.03605" pos="0 -0.0135 0.019999999999999997" euler="0 0 0" contype="1" conaffinity="1" />
+            <body name="r_upper_leg_link" pos="0 0 0" euler="1.5707963267948966 0 -1.5707963267948966">
+              <inertial pos="0.0413220734 0.0028089691 0.0" euler="0 0 0" mass="0.030" diaginertia="9.07824e-06 2.93746e-05 2.64478e-05" />
+              <geom mesh="9856e80b_FP04-F4_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="-1.5707963267948966 -1.5707963267948966 -1.5707963267948966" class="visual" />
+              <geom mesh="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" type="mesh" pos="0.075 0.0145 0" euler="1.5707963267948966 1.5707963267948966 -1.5707963267948966" class="visual" />
+              <geom type="box" size="0.0325 0.015 0.0245" pos="0.0214 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+              <geom type="box" size="0.02 0.01855 0.0245" pos="0.0675 0.0065 0" euler="0 0 0" contype="1" conaffinity="1" />
+              <body name="r_lower_leg_link" pos="0.075 0.0145 0" euler="0 0 0">
+                <inertial pos="0.02808422 -0.01407082 0.0" euler="0 0 0" mass="0.080" diaginertia="2.556272892651194e-05 8.2316347171946e-05 7.852667401664598e-05" />
+                <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="0 0 0" class="visual" />
+                <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.019 -0.0145 0" euler="0 0 1.5707963267948966" class="visual" />
+                <geom mesh="9856e80b_FP04-F4_FCD-Conv_BDR-Col" type="mesh" pos="0.071 -0.0145 0" euler="1.5707963267948966 1.5707963267948966 -1.5707963267948966" class="visual" />
+                <geom type="box" size="0.0165 0.0255 0.022" pos="0 -0.0135 0" euler="0 0 0" contype="1" conaffinity="1" />
+                <geom type="box" size="0.0335 0.015 0.0245" pos="0.0492 -0.0145 0" euler="0 0 0" contype="1" conaffinity="1" />
+                <body name="r_ankle_swing_link" pos="0.071 -0.0145 0" euler="3.141592653589793 0 0">
+                  <inertial pos="-0.0135 -0.0167 0.0" euler="0 0 0" mass="0.0685" diaginertia="3.8807590416666664e-05 2.3980708333333334e-05 4.452163208333333e-05" />
+                  <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="-0.0 3.141592653589793 -1.5707963267948966" class="visual" />
+                  <geom mesh="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" type="mesh" pos="-0.0145 0.019 0" euler="3.141592653589793 -0.0 0" class="visual" />
+                  <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.032 0" euler="0 1.5707963267948966 -1.5707963267948966" class="visual" />
+                  <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="-0.0145 -0.048 0.019" euler="-1.5707963267948966 0 -1.5707963267948966" class="visual" />
+                  <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="-0.0145 -0.048 -0.019" euler="1.5707963267948966 0 -1.5707963267948966" class="visual" />
+                  <geom type="box" size="0.0255 0.03605 0.02" pos="-0.0135 -0.0167 0" euler="0 0 0" contype="1" conaffinity="1" />
+                  <body name="r_ankle_lateral_link" pos="0 0 0" euler="-1.5707963267948966 0 0">
+                    <inertial pos="-0.0055676472 0.0034398816 0.0028465215" euler="0 0 0" mass="0.015" diaginertia="9.962e-06 1.1248e-05 3.744e-06" />
+                    <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.015" euler="1.5707963267948966 0 0" class="visual" />
+                    <geom mesh="df207a8e_FP04-F5_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0155" euler="-1.5707963267948966 -0.0 -1.5707963267948966" class="visual" />
+                    <geom type="box" size="0.02025 0.0145 0.0415" pos="0.009 0 -0.016" euler="0 0 0" contype="1" conaffinity="1" />
+                    <body name="r_foot_link" pos="0 0 0" euler="0 0 0">
+                      <inertial pos="0.0277 0 0" euler="0 0 0" mass="0.015" diaginertia="1.74025e-05 1.28525e-05 4.75250e-06" />
+                      <geom mesh="bc9e07fb_FP04-F12_FCD-Conv_BDR-Col" type="mesh" pos="0.0235 0 0" euler="0 1.5707963267948966 -1.5707963267948966" class="visual" />
+                      <geom type="box" size="0.0045 0.0305 0.0505" pos="0.0277 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+                    </body>
+                    <joint name="r_ankle_lateral_joint" pos="0 0 0" type="hinge" range="-0.8 0.8" axis="0 0 -1" />
+                  </body>
+                  <joint name="r_ankle_swing_joint" pos="0 0 0" type="hinge" range="-0.4 2.0" axis="0 0 1" />
+                </body>
+                <joint name="r_knee_joint" pos="0 0 0" type="hinge" range="-2 0" axis="0 0 -1" />
+              </body>
+              <joint name="r_hip_swing_joint" pos="0 0 0" type="hinge" range="-2.0 2.0" axis="0 0 1" />
+            </body>
+            <joint name="r_hip_lateral_joint" pos="0 0 0" type="hinge" range="-0.8 0.8" axis="0 0 -1" />
+          </body>
+          <joint name="r_hip_twist_joint" pos="0 0 0" type="hinge" range="-0.8 0.8" axis="0 0 1" />
+        </body>
+        <body name="l_hip_twist_link" pos="0 0.0385 -0.0655" euler="0 3.141592653589793 -0.788">
+          <inertial pos="0.0008 -0.02 0.041" euler="0 0 0" mass="0.016" diaginertia="1.1372e-05 3.3083e-06 1.0307e-05" />
+          <geom mesh="df207a8e_FP04-F5_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.02 0.05" euler="3.141592653589793 0 0.0" class="visual" />
+          <geom type="box" size="0.0145 0.0415 0.02025" pos="0.0008 -0.02 0.041" euler="0 0 0" contype="1" conaffinity="1" />
+          <body name="l_hip_lateral_link" pos="0 0 0.05" euler="1.5707963267948966 0 0">
+            <inertial pos="0 0.0135 0.02" euler="0 0 0" mass="0.120" diaginertia="7.7994e-05 6.7984e-05 4.20099e-05" />
+            <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0353" euler="0 0 3.141592653589793" class="visual" />
+            <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="0.019 0.0145 0.0513" euler="0 -1.5707963267948966 1.5707963267948966" class="visual" />
+            <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="-0.019 0.0145 0.0513" euler="0 -1.5707963267948966 -1.5707963267948966" class="visual" />
+            <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0032999999999999974" euler="3.141592653589793 1.5707963267948966 0" class="visual" />
+            <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.014700000000000005" euler="1.5707963267948966 3.141592653589793 0" class="visual" />
+            <geom mesh="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" type="mesh" pos="0 0.0145 -0.0157" euler="-1.5707963267948966 3.141592653589793 1.5707963267948966" class="visual" />
+            <geom type="box" size="0.02 0.0255 0.03605" pos="0 0.0135 0.019999999999999997" euler="0 0 0" contype="1" conaffinity="1" />
+            <body name="l_upper_leg_link" pos="0 0 0" euler="1.5707963267948966 0 -1.5707963267948966">
+              <inertial pos="-0.0413220734 0.0028089691 0.0" euler="0 0 0" mass="0.030" diaginertia="9.07824e-06 2.93746e-05 2.64478e-05" />
+              <geom mesh="9856e80b_FP04-F4_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="1.5707963267948966 1.5707963267948966 -1.5707963267948966" class="visual" />
+              <geom mesh="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" type="mesh" pos="-0.075 0.0145 0" euler="1.5707963267948966 -1.5707963267948966 1.5707963267948966" class="visual" />
+              <geom type="box" size="0.0325 0.015 0.0245" pos="-0.0214 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+              <geom type="box" size="0.02 0.01855 0.0245" pos="-0.0675 0.0065 0" euler="0 0 0" contype="1" conaffinity="1" />
+              <body name="l_lower_leg_link" pos="-0.075 0.0145 0" euler="0 0 0">
+                <inertial pos="-0.02808422 -0.01407082 0.0" euler="0 0 0" mass="0.080" diaginertia="2.5563e-05 8.2316e-05 7.8527e-05" />
+                <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="0 0 0" class="visual" />
+                <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="-0.019 -0.0145 0" euler="0 0 -1.5707963267948966" class="visual" />
+                <geom mesh="9856e80b_FP04-F4_FCD-Conv_BDR-Col" type="mesh" pos="-0.071 -0.0145 0" euler="-1.5707963267948966 -1.5707963267948966 -1.5707963267948966" class="visual" />
+                <geom type="box" size="0.0165 0.0255 0.022" pos="0 -0.0135 0" euler="0 0 0" contype="1" conaffinity="1" />
+                <geom type="box" size="0.0335 0.015 0.0245" pos="-0.0492 -0.0145 0" euler="0 0 0" contype="1" conaffinity="1" />
+                <body name="l_ankle_swing_link" pos="-0.071 -0.0145 0" euler="3.141592653589793 0 0">
+                  <inertial pos="0.0135 -0.0167 0.0" euler="0 0 0" mass="0.0685" diaginertia="3.8807590416666664e-05 2.3980708333333334e-05 4.452163208333333e-05" />
+                  <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="3.141592653589793 0.0 -1.5707963267948966" class="visual" />
+                  <geom mesh="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" type="mesh" pos="0.0145 0.019 0" euler="3.141592653589793 3.141592653589793 0" class="visual" />
+                  <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.032 0" euler="0 -1.5707963267948966 1.5707963267948966" class="visual" />
+                  <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="0.0145 -0.048 -0.019" euler="1.5707963267948966 0 -1.5707963267948966" class="visual" />
+                  <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="0.0145 -0.048 0.019" euler="-1.5707963267948966 0 -1.5707963267948966" class="visual" />
+                  <geom type="box" size="0.0255 0.03605 0.02" pos="0.0135 -0.0167 0" euler="0 0 0" contype="1" conaffinity="1" />
+                  <body name="l_ankle_lateral_link" pos="0 0 0" euler="-1.5707963267948966 0 0">
+                    <inertial pos="-0.0055676472 -0.0035014440 0.0028465215" euler="0 0 0" mass="0.015" diaginertia="9.968e-06 1.1248e-05 3.750e-06" />
+                    <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.015" euler="1.5707963267948966 0 0" class="visual" />
+                    <geom mesh="df207a8e_FP04-F5_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0155" euler="1.5707963267948966 3.141592653589793 -1.5707963267948966" class="visual" />
+                    <geom type="box" size="0.02025 0.0145 0.0415" pos="-0.009 0 -0.016" euler="0 0 0" contype="1" conaffinity="1" />
+                    <body name="l_foot_link" pos="0 0 0" euler="0 0 0">
+                      <inertial pos="-0.0277 0 0" euler="0 0 0" mass="0.015" diaginertia="1.74025e-05 1.28525e-05 4.75250e-06" />
+                      <geom mesh="bc9e07fb_FP04-F12_FCD-Conv_BDR-Col" type="mesh" pos="-0.0235 0 0" euler="3.141592653589793 1.5707963267948966 -1.5707963267948966" class="visual" />
+                      <geom type="box" size="0.0045 0.0305 0.0505" pos="-0.0277 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+                    </body>
+                    <joint name="l_ankle_lateral_joint" pos="0 0 0" type="hinge" range="-0.8 0.8" axis="0 0 -1" />
+                  </body>
+                  <joint name="l_ankle_swing_joint" pos="0 0 0" type="hinge" range="-2.0 0.4" axis="0 0 1" />
+                </body>
+                <joint name="l_knee_joint" pos="0 0 0" type="hinge" range="0 2" axis="0 0 -1" />
+              </body>
+              <joint name="l_hip_swing_joint" pos="0 0 0" type="hinge" range="-2.0 2.0" axis="0 0 1" />
+            </body>
+            <joint name="l_hip_lateral_joint" pos="0 0 0" type="hinge" range="-0.8 0.8" axis="0 0 -1" />
+          </body>
+          <joint name="l_hip_twist_joint" pos="0 0 0" type="hinge" range="-0.8 0.8" axis="0 0 1" />
+        </body>
+        <body name="head_link" pos="0 0 0" euler="0 0 0">
+          <inertial pos="0 0 0.03" euler="0 0 0" mass="0.05" diaginertia="6.58e-05 6.58e-05 2.08e-05" />
+          <geom mesh="916d31db_Bioloid_CUERPO_vis_4" type="mesh" pos="0 0 0" euler="0 0 0" class="visual" />
+          <geom type="box" size="0.025 0.025 0.025" pos="0 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+        </body>
+        <body name="head2_link" pos="0 0 0" euler="0 0 0">
+          <inertial pos="0 0 0" euler="0 0 0" mass="0.06" diaginertia="8.2e-05 4.0e-05 5.8e-05" />
+          <geom mesh="fe3dec6d_Bioloid_CUERPO_vis_2" type="mesh" pos="0 0 0" euler="0 0 0" class="visual" />
+          <geom type="box" size="0.02 0.05 0.04" pos="0 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+        </body>
+      </body>
+      <body name="imu_link" pos="0 0 0.05" euler="0 0 0">
+        <geom type="box" size="0.02 0.01 0.0025" pos="0 0 0" euler="0 0 0" class="visual" />
+        <geom type="box" size="0.005 0.005 0.005" pos="0 0 0" euler="0 0 0" contype="1" conaffinity="1" />
+      </body>
+      <freejoint />
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="r_shoulder_swing_joint_act" joint="r_shoulder_swing_joint" />
+    <position name="l_shoulder_swing_joint_act" joint="l_shoulder_swing_joint" />
+    <position name="r_shoulder_lateral_joint_act" joint="r_shoulder_lateral_joint" />
+    <position name="l_shoulder_lateral_joint_act" joint="l_shoulder_lateral_joint" />
+    <position name="r_elbow_joint_act" joint="r_elbow_joint" />
+    <position name="l_elbow_joint_act" joint="l_elbow_joint" />
+    <position name="r_hip_twist_joint_act" joint="r_hip_twist_joint" />
+    <position name="l_hip_twist_joint_act" joint="l_hip_twist_joint" />
+    <position name="r_hip_lateral_joint_act" joint="r_hip_lateral_joint" />
+    <position name="l_hip_lateral_joint_act" joint="l_hip_lateral_joint" />
+    <position name="r_hip_swing_joint_act" joint="r_hip_swing_joint" />
+    <position name="l_hip_swing_joint_act" joint="l_hip_swing_joint" />
+    <position name="r_knee_joint_act" joint="r_knee_joint" />
+    <position name="l_knee_joint_act" joint="l_knee_joint" />
+    <position name="r_ankle_swing_joint_act" joint="r_ankle_swing_joint" />
+    <position name="l_ankle_swing_joint_act" joint="l_ankle_swing_joint" />
+    <position name="r_ankle_lateral_joint_act" joint="r_ankle_lateral_joint" />
+    <position name="l_ankle_lateral_joint_act" joint="l_ankle_lateral_joint" />
+  </actuator>
+</mujoco>

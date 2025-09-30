@@ -1,0 +1,14 @@
+# ros2 build
+build/
+install/
+log/
+
+# clion
+**/cmake-build-debug
+**/.idea
+# vscode
+**/.vscode
+**/.devcontainer
+
+# mujoco log
+**/MUJOCO_LOG.TXT

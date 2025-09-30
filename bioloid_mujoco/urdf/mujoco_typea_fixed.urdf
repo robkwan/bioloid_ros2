@@ -1,0 +1,1258 @@
+<?xml version="1.0" ?>
+<robot name="typea">
+
+  <!-- Torso -->
+  <link name="torso_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-CHEST-F_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-CHEST-B_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/CM-5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 3.141592653589793 1.5707963267948966" xyz="-0.032 0 -0.015"/>
+    </visual>
+    <!-- Sensor 100 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-S1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 -1.5707963267948966" xyz="0 0 0.025"/>
+    </visual>
+    <!-- Motor 1 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 -0.032 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 -1.5707963267948966 1.5707963267948966" xyz="-0.019 -0.032 -0.0145"/>
+    </visual>
+    <!-- Motor 2 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 3.141592653589793" xyz="0 0.032 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 -1.5707963267948966 1.5707963267948966" xyz="-0.019 0.032 -0.0145"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 1.5707963267948966" xyz="0.0175 0 -0.0655"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 -1.5707963267948966" xyz="-0.0175 0 -0.0655"/>
+    </visual>
+    <!-- Motor 7 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 3.141592653589793 3.141592653589793" xyz="0 -0.0385 -0.0655"/>
+    </visual>
+    <!-- Motor 8 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 3.141592653589793 0" xyz="0 0.0385 -0.0655"/>
+    </visual>
+    <collision name="head_collision">
+      <origin xyz="-0.0122 0 0.035"/>
+      <geometry>
+        <box size="0.054 0.033 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="torso_collision_top">
+      <origin xyz="-0.019 0 -0.015"/>
+      <geometry>
+        <box size="0.0905 0.103 0.0635"/>
+      </geometry>
+    </collision>
+    <collision name="torso_collision_bottom">
+      <origin xyz="-0.00625 0 -0.0648"/>
+      <geometry>
+        <box size="0.065 0.099 0.043"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.411"/>
+      <origin xyz="-0.0141 0 -0.0199"/>
+      <inertia ixx="7.8941435e-04" ixy="0.0" ixz="4.4944775e-05" iyy="7.0070709e-04" iyz="0.0" izz="5.6784609e-04"/>
+    </inertial>
+  </link>
+
+  <!-- Base -->
+  <joint name="base_to_torso_joint" type="fixed">
+    <parent link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child link="torso_link"/>
+  </joint>
+  <link name="base_link">
+    </link>
+
+  <!-- IMU -->
+  <joint name="imu_to_base_joint" type="fixed">
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0.05"/>
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+  </joint>
+  <link name="imu_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.04 0.02 0.005"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size=".01 .01 .01"/>
+      </geometry>
+    </collision>
+    <!--inertial>
+      <mass value="0.001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+    </inertial-->
+  </link>
+
+  <!-- Right Shoulder -->
+  <joint name="r_shoulder_swing_joint" type="revolute">
+    <parent link="torso_link"/>
+    <origin rpy="1.5707963267948966 1.5707963267948966 0" xyz="0 -0.032 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="r_shoulder_swing_link"/>
+    <limit effort="2.8" lower="-1" upper="1.5707963267948966" velocity="1.0"/>
+  </joint>
+  <link name="r_shoulder_swing_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 3.141592653589793 3.141592653589793" xyz="0 0.014 0.044"/>
+    </visual>
+    <collision name="r_shoulder_collision">
+      <origin xyz="0 0.006 0.0375"/>
+      <geometry>
+        <box size="0.052 0.039 0.036"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.010"/>
+      <origin xyz="0 0.006 0.0375"/>
+      <inertia ixx="2.35e-06" ixy="0.0" ixz="0.0" iyy="3.33e-06" iyz="0.0" izz="3.52e-06"/>
+    </inertial>
+  </link>
+
+  <!-- Left Shoulder -->
+  <joint name="l_shoulder_swing_joint" type="revolute">
+    <parent link="torso_link"/>
+    <origin rpy="-1.5707963267948966 -1.5707963267948966 0" xyz="0 0.032 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="l_shoulder_swing_link"/>
+    <limit effort="2.8" lower="-1" upper="1.5707963267948966" velocity="1.0"/>
+  </joint>
+  <link name="l_shoulder_swing_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 3.141592653589793 3.141592653589793" xyz="0 0.014 0.044"/>
+    </visual>
+    <collision name="l_shoulder_collision">
+      <origin xyz="0 0.006 0.0375"/>
+      <geometry>
+        <box size="0.052 0.039 0.036"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.010"/>
+      <origin xyz="0 0.006 0.0375"/>
+      <inertia ixx="2.35e-06" ixy="0.0" ixz="0.0" iyy="3.33e-06" iyz="0.0" izz="3.52e-06"/>
+    </inertial>
+  </link>
+
+  <joint name="r_shoulder_lateral_joint" type="revolute">
+    <parent link="r_shoulder_swing_link"/>
+    <origin rpy="0 -1.5707963267948966 0" xyz="0 0.014 0.044"/>
+    <axis xyz="0 0 -1"/>
+    <child link="r_upper_arm_link"/>
+    <limit effort="2.8" lower="-1.5" upper="1.5" velocity="1.0"/>
+  </joint>
+  <link name="r_upper_arm_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 1.5707963267948966" xyz="0 0 -0.0185"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-WA_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 1.5707963267948966" xyz="0 0 -0.019"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 1.5707963267948966" xyz="0.0415 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F2_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 1.5707963267948966 1.5707963267948966" xyz="0.0675 0 0"/>
+    </visual>
+    <collision name="r_upper arm_collision_proximal">
+      <origin xyz="0.0148 0 0"/>
+      <geometry>
+        <box size="0.054 0.033 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="r_upper arm_collision_distal">
+      <origin xyz="0.0555 0 0"/>
+      <geometry>
+        <box size="0.047 0.033 0.052"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.070"/>
+      <origin xyz="0.03536 0 0"/>
+      <inertia ixx="1.990e-05" ixy="0.0" ixz="0.0" iyy="5.746e-05" iyz="0.0" izz="5.024e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="l_shoulder_lateral_joint" type="revolute">
+    <parent link="l_shoulder_swing_link"/>
+    <origin rpy="0 -1.5707963267948966 0" xyz="0 0.014 0.044"/>
+    <axis xyz="0 0 1"/>
+    <child link="l_upper_arm_link"/>
+    <limit effort="2.8" lower="-1.5" upper="1.5" velocity="1.0"/>
+  </joint>
+  <link name="l_upper_arm_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 0 -1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 0.0185"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-WA_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 0.019"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 0 -1.5707963267948966" xyz="0.0415 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F2_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 1.5707963267948966 -1.5707963267948966" xyz="0.0675 0 0"/>
+    </visual>
+    <collision name="l_upper arm_collision_proximal">
+      <origin xyz="0.0148 0 0"/>
+      <geometry>
+        <box size="0.054 0.033 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="l_upper arm_collision_distal">
+      <origin xyz="0.0555 0 0"/>
+      <geometry>
+        <box size="0.047 0.033 0.052"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.070"/>
+      <origin xyz="0.03536 0 0"/>
+      <inertia ixx="1.99e-05" ixy="0.0" ixz="0.0" iyy="5.746e-05" iyz="0.0" izz="5.024e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_elbow_joint" type="revolute">
+    <parent link="r_upper_arm_link"/>
+    <origin rpy="0 0 0" xyz="0.0675 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <child link="r_lower_arm_link"/>
+    <limit effort="2.8" lower="-1.77" upper="1.77" velocity="1.0"/>
+  </joint>
+  <link name="r_lower_arm_link">
+    <!-- Motor 5 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 1.5707963267948966" xyz="0 0 -0.0185"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-WA_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 1.5707963267948966" xyz="0 0 -0.019"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 1.5707963267948966" xyz="0.0415 0 0"/>
+    </visual>
+    <collision name="r_lower_arm_collision">
+      <origin xyz="0.017 0 0"/>
+      <geometry>
+        <box size="0.058 0.033 0.044"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.060"/>
+      <origin xyz="-0.0009848283 -0.0081892817 -0.0005847510"/>
+      <inertia ixx="1.51e-5" ixy="0.0" ixz="0.0" iyy="4.38e-5" iyz="0.0" izz="3.96e-5"/>
+    </inertial>
+  </link>
+
+  <joint name="l_elbow_joint" type="revolute">
+    <parent link="l_upper_arm_link"/>
+    <origin rpy="0 0 0" xyz="0.0675 0 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="l_lower_arm_link"/>
+    <limit effort="2.8" lower="-1.77" upper="1.77" velocity="1.0"/>
+  </joint>
+  <link name="l_lower_arm_link">
+    <!-- Motor 6 -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 0 -1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 0.0185"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-WA_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 0.019"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 0 -1.5707963267948966" xyz="0.0415 0 0"/>
+    </visual>
+    <collision name="l_lower_arm_collision">
+      <origin xyz="0.017 0 0"/>
+      <geometry>
+        <box size="0.058 0.033 0.044"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.060"/>
+      <origin xyz="0.0000002032 0.0068291604 -0.0006710552"/>
+      <inertia ixx="1.51e-5" ixy="0.0" ixz="0.0" iyy="4.38e-5" iyz="0.0" izz="3.96e-5"/>
+    </inertial>
+  </link>
+
+  <!-- Right Hand -->
+  <joint name="r_hand_joint" type="fixed">
+    <parent link="r_lower_arm_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child link="r_hand_link"/>
+  </joint>
+  <link name="r_hand_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F11_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 -1.5707963267948966 0" xyz="0.0415 0 0"/>
+    </visual>
+    <collision name="r_palm_collision">
+      <origin xyz="0.039 0 0"/>
+      <geometry>
+        <box size="0.0131 0.0265 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="r_fingers_collision">
+      <origin xyz="0.0701 -0.0077 0"/>
+      <geometry>
+        <box size="0.0575 0.0175 0.035"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.008"/>
+      <origin xyz="0.05455 0.00385 0"/>
+      <inertia ixx="2.2e-6" ixy="-1e-7" ixz="0.0" iyy="5.2e-6" iyz="0.0" izz="5.0e-6"/>
+    </inertial>
+  </link>
+
+  <!-- Left Hand -->
+  <joint name="l_hand_joint" type="fixed">
+    <parent link="l_lower_arm_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child link="l_hand_link"/>
+  </joint>
+  <link name="l_hand_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F11_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0.0415 0 0"/>
+    </visual>
+    <collision name="l_palm_collision">
+      <origin xyz="0.039 0 0"/>
+      <geometry>
+        <box size="0.0131 0.0265 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="l_fingers_collision">
+      <origin xyz="0.0701 -0.0077 0"/>
+      <geometry>
+        <box size="0.0575 0.0175 0.035"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.008"/>
+      <origin xyz="0.05455 -0.00385 0"/>
+      <inertia ixx="2.2e-6" ixy="1e-7" ixz="0.0" iyy="5.2e-6" iyz="0.0" izz="5.0e-6"/>
+    </inertial>
+  </link>
+
+  <!-- Right Hip -->
+  <joint name="r_hip_twist_joint" type="revolute">
+    <parent link="torso_link"/>
+    <origin rpy="0 3.141592653589793 0.788" xyz="0 -0.0385 -0.0655"/>
+    <axis xyz="0 0 1"/>
+    <child link="r_hip_twist_link"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
+  </joint>
+  <link name="r_hip_twist_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 0 3.141592653589793" xyz="0 0.02 0.05"/>
+    </visual>
+    <collision name="r_hip_twist_collision">
+      <origin xyz="0.0008 0.02 0.041"/>
+      <geometry>
+        <box size="0.029 0.083 0.0405"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.016"/>
+      <origin xyz="0.0008 0.02 0.041"/>
+      <inertia ixx="1.1372e-05" ixy="0.0" ixz="0.0" iyy="3.3083e-06" iyz="0.0" izz="1.0307e-05"/>
+    </inertial>
+  </link>
+
+  <!-- Left Hip -->
+  <joint name="l_hip_twist_joint" type="revolute">
+    <parent link="torso_link"/>
+    <origin rpy="0 3.141592653589793 -0.788" xyz="0 0.0385 -0.0655"/>
+    <axis xyz="0 0 1"/>
+    <child link="l_hip_twist_link"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
+  </joint>
+  <link name="l_hip_twist_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 0 0.0" xyz="0 -0.02 0.05"/>
+    </visual>
+    <collision name="l_hip_twist_collision">
+      <origin xyz="0.0008 -0.02 0.041"/>
+      <geometry>
+        <box size="0.029 0.083 0.0405"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.016"/>
+      <origin xyz="0.0008 -0.02 0.041"/>
+      <inertia ixx="1.1372e-05" ixy="0.0" ixz="0.0" iyy="3.3083e-06" iyz="0.0" izz="1.0307e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_hip_lateral_joint" type="revolute">
+    <parent link="r_hip_twist_link"/>
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0.05"/>
+    <axis xyz="0 0 -1"/>
+    <child link="r_hip_lateral_link"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
+  </joint>
+  <link name="r_hip_lateral_link">
+    <!-- Motor 9[r] 10[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 -0.0" xyz="0 0 0.0353"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 -1.5707963267948966 -1.5707963267948966" xyz="-0.019 -0.0145 0.0513"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 -1.5707963267948966 1.5707963267948966" xyz="0.019 -0.0145 0.0513"/>
+    </visual>
+    <!-- Motor 11[r] 12[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-0.0 -1.5707963267948966 0" xyz="0 0 0.0032999999999999974"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 -0.0 0" xyz="0 0 -0.014700000000000005"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F7_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 -0.0 1.5707963267948966" xyz="0 -0.0145 -0.0157"/>
+    </visual>
+    <collision name="r_hip_lateral_collision">
+      <origin xyz="0 -0.0135 0.019999999999999997"/>
+      <geometry>
+        <box size="0.04 0.051 0.0721"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.120"/>
+     <origin xyz="0 -0.0135 0.02"/>
+     <inertia ixx="7.79941e-05" ixy="0.0" ixz="0.0" iyy="6.79841e-05" iyz="0.0" izz="4.20099e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="l_hip_lateral_joint" type="revolute">
+    <parent link="l_hip_twist_link"/>
+    <origin rpy="1.5707963267948966 0 0" xyz="0 0 0.05"/>
+    <axis xyz="0 0 -1"/>
+    <child link="l_hip_lateral_link"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
+  </joint>
+  <link name="l_hip_lateral_link">
+    <!-- Motor 9[r] 10[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 3.141592653589793" xyz="0 0 0.0353"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 -1.5707963267948966 1.5707963267948966" xyz="0.019 0.0145 0.0513"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 -1.5707963267948966 -1.5707963267948966" xyz="-0.019 0.0145 0.0513"/>
+    </visual>
+    <!-- Motor 11[r] 12[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 1.5707963267948966 0" xyz="0 0 0.0032999999999999974"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 3.141592653589793 0" xyz="0 0 -0.014700000000000005"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F7_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 3.141592653589793 1.5707963267948966" xyz="0 0.0145 -0.0157"/>
+    </visual>
+    <collision name="l_hip_lateral_collision">
+      <origin xyz="0 0.0135 0.019999999999999997"/>
+      <geometry>
+        <box size="0.04 0.051 0.0721"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.120"/>
+      <origin xyz="0 0.0135 0.02"/>
+      <inertia ixx="7.7994e-05" ixy="0.0" ixz="0.0" iyy="6.7984e-05" iyz="0.0" izz="4.20099e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_hip_swing_joint" type="revolute">
+    <parent link="r_hip_lateral_link"/>
+    <origin rpy="1.5707963267948966 0 -1.5707963267948966" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="r_upper_leg_link"/>
+    <limit effort="10" lower="-2.0" upper="2.0" velocity="5.6548668"/>
+  </joint>
+  <link name="r_upper_leg_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F4_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 -1.5707963267948966 -1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 1.5707963267948966 -1.5707963267948966" xyz="0.075 0.0145 0"/>
+    </visual>
+    <collision name="r_upper_leg_proximal_collision">
+      <origin xyz="0.0214 0 0"/>
+      <geometry>
+        <box size="0.065 0.03 0.049"/>
+      </geometry>
+    </collision>
+    <collision name="r_upper_leg_distal_collision">
+      <origin xyz="0.0675 0.0065 0"/>
+      <geometry>
+        <box size="0.04 0.0371 0.049"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.030"/>
+      <origin xyz="0.0413220734 0.0028089691 0.0"/>
+      <inertia ixx="9.07824e-06" ixy="-2.20599e-06" ixz="0.0" iyy="2.93746e-05" iyz="0.0" izz="2.64478e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="l_hip_swing_joint" type="revolute">
+    <parent link="l_hip_lateral_link"/>
+    <origin rpy="1.5707963267948966 0 -1.5707963267948966" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="l_upper_leg_link"/>
+    <limit effort="10" lower="-2.0" upper="2.0" velocity="5.6548668"/>
+  </joint>
+  <link name="l_upper_leg_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F4_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 1.5707963267948966 -1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 -1.5707963267948966 1.5707963267948966" xyz="-0.075 0.0145 0"/>
+    </visual>
+    <collision name="l_upper_leg_proximal_collision">
+      <origin xyz="-0.0214 0 0"/>
+      <geometry>
+        <box size="0.065 0.03 0.049"/>
+      </geometry>
+    </collision>
+    <collision name="l_upper_leg_distal_collision">
+      <origin xyz="-0.0675 0.0065 0"/>
+      <geometry>
+        <box size="0.04 0.0371 0.049"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.030"/>
+      <origin xyz="-0.0413220734 0.0028089691 0.0"/>
+      <inertia ixx="9.07824e-06" ixy="2.20599e-06" ixz="0.0" iyy="2.93746e-05" iyz="0.0" izz="2.64478e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_knee_joint" type="revolute">
+    <parent link="r_upper_leg_link"/>
+    <origin rpy="0 0 0" xyz="0.075 0.0145 0"/>
+    <axis xyz="0 0 -1"/>
+    <child link="r_lower_leg_link"/>
+    <limit effort="10" lower="-2" upper="0" velocity="5.6548668"/>
+  </joint>
+  <link name="r_lower_leg_link">
+    <!-- Motor 13[r] 14[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 1.5707963267948966" xyz="0.019 -0.0145 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F4_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 1.5707963267948966 -1.5707963267948966" xyz="0.071 -0.0145 0"/>
+    </visual>
+    <collision name="r_lower_leg_proximal_collision">
+      <origin xyz="0 -0.0135 0"/>
+      <geometry>
+        <box size="0.033 0.051 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="r_lower_leg_distal_collision">
+      <origin xyz="0.0492 -0.0145 0"/>
+      <geometry>
+        <box size="0.067 0.03 0.049"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.080"/>
+      <origin xyz="0.02808422 -0.01407082 0.0" rpy="0 0 0"/>
+      <inertia ixx="2.556272892651194e-05" ixy="9.64260472004544e-07" ixz="0.0" iyy="8.2316347171946e-05" iyz="0.0" izz="7.852667401664598e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="l_knee_joint" type="revolute">
+    <parent link="l_upper_leg_link"/>
+    <origin rpy="0 0 0" xyz="-0.075 0.0145 0"/>
+    <axis xyz="0 0 -1"/>
+    <child link="l_lower_leg_link"/>
+    <limit effort="10" lower="0" upper="2" velocity="5.6548668"/>
+  </joint>
+  <link name="l_lower_leg_link">
+    <!-- Motor 13[r] 14[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 0 -1.5707963267948966" xyz="-0.019 -0.0145 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F4_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 -1.5707963267948966 -1.5707963267948966" xyz="-0.071 -0.0145 0"/>
+    </visual>
+    <collision name="l_lower_leg_proximal_collision">
+      <origin xyz="0 -0.0135 0"/>
+      <geometry>
+        <box size="0.033 0.051 0.044"/>
+      </geometry>
+    </collision>
+    <collision name="l_lower_leg_distal_collision">
+      <origin xyz="-0.0492 -0.0145 0"/>
+      <geometry>
+        <box size="0.067 0.03 0.049"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.080"/>
+      <origin xyz="-0.02808422 -0.01407082 0.0" rpy="0 0 0"/>
+      <inertia ixx="2.5563e-05" ixy="-9.6426e-07" ixz="0.0" iyy="8.2316e-05" iyz="0.0" izz="7.8527e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_ankle_swing_joint" type="revolute">
+    <parent link="r_lower_leg_link"/>
+    <origin rpy="3.141592653589793 0 0" xyz="0.071 -0.0145 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="r_ankle_swing_link"/>
+    <limit effort="10" lower="-0.4" upper="2.0" velocity="5.6548668"/>
+  </joint>
+  <link name="r_ankle_swing_link">
+    <!-- Motor 15[r] 16[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy=" -0.0  3.141592653589793 -1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F7_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 -0.0 0" xyz="-0.0145 0.019 0"/>
+    </visual>
+    <!-- Motor 17[r] 18[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 1.5707963267948966 -1.5707963267948966" xyz="0 -0.032 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 -1.5707963267948966" xyz="-0.0145 -0.048 0.019"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 -1.5707963267948966" xyz="-0.0145 -0.048 -0.019"/>
+    </visual>
+    <collision name="r_ankle_swing_collision">
+      <origin xyz="-0.0135 -0.0167 0"/>
+      <geometry>
+        <box size="0.051 0.0721 0.04"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0685"/>
+      <origin xyz="-0.0135 -0.0167 0.0" rpy="0 0 0"/>
+      <inertia ixx="3.8807590416666664e-05" ixy="0.0" ixz="0.0" iyy="2.3980708333333334e-05" iyz="0.0" izz="4.452163208333333e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="l_ankle_swing_joint" type="revolute">
+    <parent link="l_lower_leg_link"/>
+    <origin rpy="3.141592653589793 0 0" xyz="-0.071 -0.0145 0"/>
+    <axis xyz="0 0 1"/>
+    <child link="l_ankle_swing_link"/>
+    <limit effort="10" lower="-2.0" upper="0.4" velocity="5.6548668"/>
+  </joint>
+  <link name="l_ankle_swing_link">
+    <!-- Motor 15[r] 16[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy=" 3.141592653589793  0.0 -1.5707963267948966" xyz="0 0 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F7_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 3.141592653589793 0" xyz="0.0145 0.019 0"/>
+    </visual>
+    <!-- Motor 17[r] 18[l] -->
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 -1.5707963267948966 1.5707963267948966" xyz="0 -0.032 0"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 -1.5707963267948966" xyz="0.0145 -0.048 -0.019"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 0 -1.5707963267948966" xyz="0.0145 -0.048 0.019"/>
+    </visual>
+    <collision name="l_ankle_swing_collision">
+      <origin xyz="0.0135 -0.0167 0"/>
+      <geometry>
+        <box size="0.051 0.0721 0.04"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0685"/>
+      <origin xyz="0.0135 -0.0167 0.0" rpy="0 0 0"/>
+      <inertia ixx="3.8807590416666664e-05" ixy="0.0" ixz="0.0" iyy="2.3980708333333334e-05" iyz="0.0" izz="4.452163208333333e-05"/>
+    </inertial>
+  </link>
+
+  <joint name="r_ankle_lateral_joint" type="revolute">
+    <parent link="r_ankle_swing_link"/>
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <child link="r_ankle_lateral_link"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
+  </joint>
+  <link name="r_ankle_lateral_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0.015"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="-1.5707963267948966 -0.0  -1.5707963267948966" xyz="0 0 -0.0155"/>
+    </visual>
+    <collision name="r_ankle_lateral_collision">
+      <origin xyz="0.009 0 -0.016"/>
+      <geometry>
+        <box size="0.0405 0.029 0.083"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.015"/>
+      <origin xyz="-0.0055676472 0.0034398816 0.0028465215"/>
+      <inertia ixx="9.962e-06" ixy="2.873e-07" ixz="2.377e-07" iyy="1.1248e-05" iyz="-1.469e-07" izz="3.744e-06"/>
+    </inertial>
+  </link>
+
+  <joint name="l_ankle_lateral_joint" type="revolute">
+    <parent link="l_ankle_swing_link"/>
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <child link="l_ankle_lateral_link"/>
+    <limit effort="10" lower="-0.8" upper="0.8" velocity="5.6548668"/>
+  </joint>
+  <link name="l_ankle_lateral_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0.015"/>
+    </visual>
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="1.5707963267948966 3.141592653589793  -1.5707963267948966" xyz="0 0 -0.0155"/>
+    </visual>
+    <collision name="l_ankle_lateral_collision">
+      <origin xyz="-0.009 0 -0.016"/>
+      <geometry>
+        <box size="0.0405 0.029 0.083"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.015"/>
+      <origin xyz="-0.0055676472 -0.0035014440 0.0028465215"/>
+      <inertia ixx="9.968e-06" ixy="-2.924e-07" ixz="2.377e-07" iyy="1.1248e-05" iyz="1.495e-07" izz="3.750e-06"/>
+    </inertial>
+  </link>
+
+  <!-- Right Foot -->
+  <joint name="r_foot_joint" type="fixed">
+    <parent link="r_ankle_lateral_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child link="r_foot_link"/>
+  </joint>
+  <link name="r_foot_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="0 1.5707963267948966 -1.5707963267948966" xyz="0.0235 0 0"/>
+    </visual>
+    <collision name="r_foot_collision">
+      <origin xyz="0.0277 0 0"/>
+      <geometry>
+        <box size="0.009 0.061 0.101"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.015"/>
+      <origin xyz="0.0277 0 0" rpy="0 0 0"/>
+      <inertia ixx="1.74025e-05" ixy="0.0" ixz="0.0" iyy="1.28525e-05" iyz="0.0" izz="4.75250e-06"/>
+    </inertial>
+  </link>
+
+  <!-- Left Foot -->  
+  <joint name="l_foot_joint" type="fixed">
+    <parent link="l_ankle_lateral_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child link="l_foot_link"/>
+  </joint>
+  <link name="l_foot_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/FP04-F12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin rpy="3.141592653589793 1.5707963267948966 -1.5707963267948966" xyz="-0.0235 0 0"/>
+    </visual>
+    <collision name="l_foot_collision">
+      <origin xyz="-0.0277 0 0"/>
+      <geometry>
+        <box size="0.009 0.061 0.101"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.015"/>
+      <origin xyz="-0.0277 0 0" rpy="0 0 0"/>
+      <inertia ixx="1.74025e-05" ixy="0.0" ixz="0.0" iyy="1.28525e-05" iyz="0.0" izz="4.75250e-06"/>
+    </inertial>
+  </link>
+
+  <!-- Add this for new head -->
+  <link name="head_link">
+    <visual>
+        <geometry>
+            <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/Bioloid_CUERPO_vis_4.stl" scale="1.0 1.0 1.0"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </visual>
+    <collision name="head_collision">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.05 0.05 0.05" />
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="0.05"/>
+        <origin xyz="0 0 0.03"/>
+        <inertia ixx="6.58e-05" ixy="0.0" ixz="0.0" iyy="6.58e-05" iyz="0.0" izz="2.08e-05"/>
+    </inertial>
+  </link>
+
+  <!-- Add this under your existing joints -->
+  <joint name="head_joint" type="fixed">
+    <parent link="torso_link" />
+    <child link="head_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit effort="1.5" lower="-1.0" upper="1.0" velocity="1.0" />
+  </joint>
+
+    <link name="head2_link">
+    <visual>
+        <geometry>
+            <mesh filename="/home/robkwan/ros2_ws/src/bioloid_ros2/bioloid_description/assets/cad/Bioloid_CUERPO_vis_2.stl" />
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0" /> <!-- Adjust position as needed -->
+    </visual>
+    <collision name="head2_collision">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.04 0.10 0.08" /> <!-- Adjust size as needed -->
+        </geometry>
+    </collision>
+    <inertial>
+        <mass value="0.06"/>
+        <origin xyz="0 0 0" />
+        <inertia ixx="8.2e-05" ixy="0.0" ixz="0.0" iyy="4.0e-05" iyz="0.0" izz="5.8e-05"/>
+    </inertial>
+  </link>
+  
+  <!-- Add this under your existing joints -->
+  <joint name="head2_joint" type="fixed">
+    <parent link="torso_link" />
+    <child link="head2_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit effort="1.5" lower="-1.0" upper="1.0" velocity="1.0" />
+  </joint>
+
+  <!-- ros2_control configuration -->
+  <ros2_control name="typea" type="system">
+    <hardware>
+      <plugin>dynamixel_hardware/DynamixelHardware</plugin>
+
+      <param name="usb_port">/dev/ttyUSB0</param>
+      <param name="baud_rate">1000000</param>
+      <param name="number_of_joints">18</param>
+      <param name="protocol_version">1.0</param>
+      <param name="use_dummy">false</param>
+ 
+      <!--param name="dynamixel_state_pub_msg_name">dynamixel_hardwareInterface/dxl_state</param-->
+      <param name="get_dynamixel_data_srv_name">dynamixel_hardwareInterface/get_dxl_data</param>
+      <param name="set_dynamixel_data_srv_name">dynamixel_hardwareInterface/set_dxl_data</param>
+      <!--param name="reboot_dxl_srv_name">dynamixel_hardwareInterface/reboot_dxl</param>
+      <param name="set_dxl_torque_srv_name">dynamixel_hardwareInterface/set_dxl_torque</param-->
+    </hardware>
+    
+    <!-- Right Arm -->
+    <joint name="r_shoulder_swing_joint">
+      <param name="id">1</param>
+      <command_interface name="position"/>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+ 
+    <!-- Left Arm -->
+    <joint name="l_shoulder_swing_joint">
+      <param name="id">2</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="r_shoulder_lateral_joint">
+      <param name="id">3</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="l_shoulder_lateral_joint">
+      <param name="id">4</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+   
+    <joint name="r_elbow_joint">
+      <param name="id">5</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="l_elbow_joint">
+      <param name="id">6</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <!-- Right Leg -->
+    <joint name="r_hip_twist_joint">
+      <param name="id">7</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <!-- Left Leg -->
+    <joint name="l_hip_twist_joint">
+      <param name="id">8</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_hip_lateral_joint">
+      <param name="id">9</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="l_hip_lateral_joint">
+      <param name="id">10</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_hip_swing_joint">
+      <param name="id">11</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="l_hip_swing_joint">
+      <param name="id">12</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_knee_joint">
+      <param name="id">13</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="l_knee_joint">
+      <param name="id">14</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_ankle_swing_joint">
+      <param name="id">15</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="l_ankle_swing_joint">
+      <param name="id">16</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="r_ankle_lateral_joint">
+      <param name="id">17</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="l_ankle_lateral_joint">
+      <param name="id">18</param>
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+  </ros2_control>
+</robot>
+  

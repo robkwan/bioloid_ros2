@@ -1,0 +1,191 @@
+<mujoco model="typea">
+  <compiler angle="radian" meshdir="assets" coordinate="local"/>
+  
+  <asset>
+    <mesh name="8b120736_BPF-CHEST-F_FCD-Conv_BDR-Col" file="8b120736_BPF-CHEST-F_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="94afeb60_BPF-CHEST-B_FCD-Conv_BDR-Col" file="94afeb60_BPF-CHEST-B_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="df1d2ef7_CM-5_FCD-Conv_BDR-Col" file="df1d2ef7_CM-5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="2c813877_AX-S1_FCD-Conv_BDR-Col" file="2c813877_AX-S1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="3c0b5d99_AX-12_FCD-Conv_BDR-Col" file="3c0b5d99_AX-12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" file="d8612dc6_FP04-F3_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" file="11c5acbd_FP04-F1_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="5f501081_BPF-BU_FCD-Conv_BDR-Col" file="5f501081_BPF-BU_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" file="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col" file="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="abc2df66_FP04-F11_FCD-Conv_BDR-Col" file="abc2df66_FP04-F11_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="df207a8e_FP04-F5_FCD-Conv_BDR-Col" file="df207a8e_FP04-F5_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="c44f3233_FP04-F6_FCD-Conv_BDR-Col" file="c44f3233_FP04-F6_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" file="4aa1180e_FP04-F7_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="9856e80b_FP04-F4_FCD-Conv_BDR-Col" file="9856e80b_FP04-F4_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="bc9e07fb_FP04-F12_FCD-Conv_BDR-Col" file="bc9e07fb_FP04-F12_FCD-Conv_BDR-Col.stl" scale="0.001 0.001 0.001" />
+    <mesh name="916d31db_Bioloid_CUERPO_vis_4" file="916d31db_Bioloid_CUERPO_vis_4.stl" scale="1.0 1.0 1.0" />
+    <mesh name="fe3dec6d_Bioloid_CUERPO_vis_2" file="fe3dec6d_Bioloid_CUERPO_vis_2.stl" />
+  </asset>
+
+  <default>
+    <mesh scale="0.001 0.001 0.001" />
+    <geom rgba="0.7 0.7 0.7 1.0" />
+    <joint damping="0.5" frictionloss="0.03" />
+    <default class="visual">
+      <geom contype="0" conaffinity="0" group="1" />
+    </default>
+  </default>
+
+  <worldbody>
+    <!-- Torso with visual meshes -->
+    <geom mesh="8b120736_BPF-CHEST-F_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="1.5708 0 1.5708" class="visual" />
+    <geom mesh="94afeb60_BPF-CHEST-B_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="1.5708 0 1.5708" class="visual" />
+    <geom mesh="df1d2ef7_CM-5_FCD-Conv_BDR-Col" type="mesh" pos="-0.032 0 -0.015" euler="0 3.1416 1.5708" class="visual" />
+    <geom mesh="2c813877_AX-S1_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.025" euler="-1.5708 0 -1.5708" class="visual" />
+    
+    <!-- Collision geometries (kept for physics) -->
+    <geom name="head_collision" size="0.027 0.0165 0.022" pos="-0.0122 0 0.035" type="box"/>
+    <geom name="torso_collision_top" size="0.04525 0.0515 0.03175" pos="-0.019 0 -0.015" type="box"/>
+    <geom name="torso_collision_bottom" size="0.0325 0.0495 0.0215" pos="-0.00625 0 -0.0648" type="box"/>
+    <geom size="0.025 0.025 0.025" type="box"/>
+    <geom name="head2_collision" size="0.02 0.05 0.04" type="box"/>
+    <geom size="0.005 0.005 0.005" pos="0 0 0.05" type="box" rgba="0 1 0 1"/>
+    
+    <body name="r_shoulder_swing_link" pos="0 -0.032 0" quat="0.5 0.5 0.5 -0.5">
+      <inertial pos="0 0.006 0.0375" quat="0 0.707107 0 0.707107" mass="0.01" diaginertia="3.52e-06 3.33e-06 2.35e-06"/>
+      <joint name="r_shoulder_swing_joint" pos="0 0 0" axis="0 0 1" range="-1 1.5708" actuatorfrcrange="-2.8 2.8"/>
+      
+      <!-- Visual mesh for shoulder -->
+      <geom mesh="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" type="mesh" pos="0 0.014 0.044" euler="0 3.1416 3.1416" class="visual" />
+      
+      <!-- Collision geometry -->
+      <geom name="r_shoulder_collision" size="0.026 0.0195 0.018" pos="0 0.006 0.0375" type="box"/>
+      
+      <body name="r_upper_arm_link" pos="0 0.014 0.044" quat="0.707107 0 -0.707107 0">
+        <inertial pos="0.03536 0 0" quat="0.5 0.5 0.5 0.5" mass="0.07" diaginertia="5.746e-05 5.024e-05 1.99e-05"/>
+        <joint name="r_shoulder_lateral_joint" pos="0 0 0" axis="0 0 -1" range="-1.5 1.5" actuatorfrcrange="-2.8 2.8"/>
+        
+        <!-- Visual meshes for upper arm -->
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="0 0 1.5708" class="visual" />
+        <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0185" euler="-1.5708 0 1.5708" class="visual" />
+        <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.019" euler="-1.5708 0 1.5708" class="visual" />
+        <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="0 0 1.5708" class="visual" />
+        <geom mesh="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col" type="mesh" pos="0.0675 0 0" euler="-1.5708 1.5708 1.5708" class="visual" />
+        
+        <!-- Collision geometries -->
+        <geom name="r_upper arm_collision_proximal" size="0.027 0.0165 0.022" pos="0.0148 0 0" type="box"/>
+        <geom name="r_upper arm_collision_distal" size="0.0235 0.0165 0.026" pos="0.0555 0 0" type="box"/>
+        
+        <body name="r_lower_arm_link" pos="0.0675 0 0">
+          <inertial pos="0.00554868 -0.0067729 -0.000515957" quat="0.479854 0.473689 0.522751 0.521624" mass="0.068" diaginertia="7.12121e-05 6.73943e-05 1.78853e-05"/>
+          <joint name="r_elbow_joint" pos="0 0 0" axis="0 0 -1" range="-1.77 1.77" actuatorfrcrange="-2.8 2.8"/>
+          
+          <!-- Visual meshes for lower arm -->
+          <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="0 0 1.5708" class="visual" />
+          <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0185" euler="-1.5708 0 1.5708" class="visual" />
+          <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.019" euler="-1.5708 0 1.5708" class="visual" />
+          <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="0 0 1.5708" class="visual" />
+          <geom mesh="abc2df66_FP04-F11_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="3.1416 -1.5708 0" class="visual" />
+          
+          <!-- Collision geometries -->
+          <geom name="r_lower_arm_collision" size="0.029 0.0165 0.022" pos="0.017 0 0" type="box"/>
+          <geom name="r_palm_collision" size="0.00655 0.01325 0.022" pos="0.039 0 0" type="box"/>
+          <geom name="r_fingers_collision" size="0.02875 0.00875 0.0175" pos="0.0701 -0.0077 0" type="box"/>
+        </body>
+      </body>
+    </body>
+    
+    <body name="l_shoulder_swing_link" pos="0 0.032 0" quat="0.5 -0.5 -0.5 -0.5">
+      <inertial pos="0 0.006 0.0375" quat="0 0.707107 0 0.707107" mass="0.01" diaginertia="3.52e-06 3.33e-06 2.35e-06"/>
+      <joint name="l_shoulder_swing_joint" pos="0 0 0" axis="0 0 1" range="-1 1.5708" actuatorfrcrange="-2.8 2.8"/>
+      
+      <!-- Visual mesh for left shoulder -->
+      <geom mesh="11c5acbd_FP04-F1_FCD-Conv_BDR-Col" type="mesh" pos="0 0.014 0.044" euler="0 3.1416 3.1416" class="visual" />
+      
+      <geom name="l_shoulder_collision" size="0.026 0.0195 0.018" pos="0 0.006 0.0375" type="box"/>
+      
+      <body name="l_upper_arm_link" pos="0 0.014 0.044" quat="0.707107 0 -0.707107 0">
+        <inertial pos="0.03536 0 0" quat="0.5 0.5 0.5 0.5" mass="0.07" diaginertia="5.746e-05 5.024e-05 1.99e-05"/>
+        <joint name="l_shoulder_lateral_joint" pos="0 0 0" axis="0 0 1" range="-1.5 1.5" actuatorfrcrange="-2.8 2.8"/>
+        
+        <!-- Visual meshes for left upper arm -->
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="3.1416 0 -1.5708" class="visual" />
+        <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0185" euler="1.5708 0 1.5708" class="visual" />
+        <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.019" euler="1.5708 0 1.5708" class="visual" />
+        <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="3.1416 0 -1.5708" class="visual" />
+        <geom mesh="b04d8bdf_FP04-F2_FCD-Conv_BDR-Col" type="mesh" pos="0.0675 0 0" euler="1.5708 1.5708 -1.5708" class="visual" />
+        
+        <geom name="l_upper arm_collision_proximal" size="0.027 0.0165 0.022" pos="0.0148 0 0" type="box"/>
+        <geom name="l_upper arm_collision_distal" size="0.0235 0.0165 0.026" pos="0.0555 0 0" type="box"/>
+        
+        <body name="l_lower_arm_link" pos="0.0675 0 0">
+          <inertial pos="0.00641783 0.00557279 -0.000592108" quat="0.519286 0.520103 0.476239 0.482733" mass="0.068" diaginertia="7.03478e-05 6.6411e-05 1.77672e-05"/>
+          <joint name="l_elbow_joint" pos="0 0 0" axis="0 0 1" range="-1.77 1.77" actuatorfrcrange="-2.8 2.8"/>
+          
+          <!-- Visual meshes for left lower arm -->
+          <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0" euler="3.1416 0 -1.5708" class="visual" />
+          <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0185" euler="1.5708 0 1.5708" class="visual" />
+          <geom mesh="c9bc5e6a_BPF-WA_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.019" euler="1.5708 0 1.5708" class="visual" />
+          <geom mesh="d8612dc6_FP04-F3_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="3.1416 0 -1.5708" class="visual" />
+          <geom mesh="abc2df66_FP04-F11_FCD-Conv_BDR-Col" type="mesh" pos="0.0415 0 0" euler="0 -1.5708 3.1416" class="visual" />
+          
+          <geom name="l_lower_arm_collision" size="0.029 0.0165 0.022" pos="0.017 0 0" type="box"/>
+          <geom name="l_palm_collision" size="0.00655 0.01325 0.022" pos="0.039 0 0" type="box"/>
+          <geom name="l_fingers_collision" size="0.02875 0.00875 0.0175" pos="0.0701 -0.0077 0" type="box"/>
+        </body>
+      </body>
+    </body>
+    
+    <!-- Continue with hip and leg sections... -->
+    <body name="r_hip_twist_link" pos="0 -0.0385 -0.0655" quat="0 -0.383885 0.923381 0">
+      <inertial pos="0.0008 0.02 0.041" quat="0.707107 0.707107 0 0" mass="0.016" diaginertia="1.1372e-05 1.0307e-05 3.3083e-06"/>
+      <joint name="r_hip_twist_joint" pos="0 0 0" axis="0 0 1" range="-0.8 0.8" actuatorfrcrange="-10 10"/>
+      
+      <!-- Visual mesh for hip -->
+      <geom mesh="df207a8e_FP04-F5_FCD-Conv_BDR-Col" type="mesh" pos="0 0.02 0.05" euler="3.1416 0 3.1416" class="visual" />
+      
+      <geom name="r_hip_twist_collision" size="0.0145 0.0415 0.02025" pos="0.0008 0.02 0.041" type="box"/>
+      
+      <body name="r_hip_lateral_link" pos="0 0 0.05" quat="0.707107 -0.707107 0 0">
+        <inertial pos="0 -0.0135 0.02" mass="0.12" diaginertia="7.79941e-05 6.79841e-05 4.20099e-05"/>
+        <joint name="r_hip_lateral_joint" pos="0 0 0" axis="0 0 -1" range="-0.8 0.8" actuatorfrcrange="-10 10"/>
+        
+        <!-- Multiple visual meshes for hip lateral -->
+        <geom mesh="3c0b5d99_AX-12_FCD-Conv_BDR-Col" type="mesh" pos="0 0 0.0353" euler="0 0 0" class="visual" />
+        <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="-0.019 -0.0145 0.0513" euler="0 -1.5708 -1.5708" class="visual" />
+        <geom mesh="c44f3233_FP04-F6_FCD-Conv_BDR-Col" type="mesh" pos="0.019 -0.0145 0.0513" euler="0 -1.5708 1.5708" class="visual" />
+        <geom mesh="5f501081_BPF-BU_FCD-Conv_BDR-Col" type="mesh" pos="0 0 -0.0147" euler="-1.5708 0 0" class="visual" />
+        <geom mesh="4aa1180e_FP04-F7_FCD-Conv_BDR-Col" type="mesh" pos="0 -0.0145 -0.0157" euler="1.5708 0 1.5708" class="visual" />
+        
+        <geom name="r_hip_lateral_collision" size="0.02 0.0255 0.03605" pos="0 -0.0135 0.02" type="box"/>
+        
+        <!-- Continue with remaining leg structure... -->
+        <!-- ... (complete leg structure would continue here) ... -->
+      </body>
+    </body>
+    
+    <!-- Add similar structure for left leg -->
+    
+    <!-- Head links with visual meshes -->
+    <geom mesh="916d31db_Bioloid_CUERPO_vis_4" type="mesh" pos="0 0 0" euler="0 0 0" class="visual" />
+    <geom mesh="fe3dec6d_Bioloid_CUERPO_vis_2" type="mesh" pos="0 0 0" euler="0 0 0" class="visual" />
+    
+  </worldbody>
+  
+  <actuator>
+    <position name="r_shoulder_swing_joint_act" joint="r_shoulder_swing_joint" />
+    <position name="l_shoulder_swing_joint_act" joint="l_shoulder_swing_joint" />
+    <position name="r_shoulder_lateral_joint_act" joint="r_shoulder_lateral_joint" />
+    <position name="l_shoulder_lateral_joint_act" joint="l_shoulder_lateral_joint" />
+    <position name="r_elbow_joint_act" joint="r_elbow_joint" />
+    <position name="l_elbow_joint_act" joint="l_elbow_joint" />
+    <position name="r_hip_twist_joint_act" joint="r_hip_twist_joint" />
+    <position name="l_hip_twist_joint_act" joint="l_hip_twist_joint" />
+    <position name="r_hip_lateral_joint_act" joint="r_hip_lateral_joint" />
+    <position name="l_hip_lateral_joint_act" joint="l_hip_lateral_joint" />
+    <position name="r_hip_swing_joint_act" joint="r_hip_swing_joint" />
+    <position name="l_hip_swing_joint_act" joint="l_hip_swing_joint" />
+    <position name="r_knee_joint_act" joint="r_knee_joint" />
+    <position name="l_knee_joint_act" joint="l_knee_joint" />
+    <position name="r_ankle_swing_joint_act" joint="r_ankle_swing_joint" />
+    <position name="l_ankle_swing_joint_act" joint="l_ankle_swing_joint" />
+    <position name="r_ankle_lateral_joint_act" joint="r_ankle_lateral_joint" />
+    <position name="l_ankle_lateral_joint_act" joint="l_ankle_lateral_joint" />
+  </actuator>
+  
+</mujoco>
