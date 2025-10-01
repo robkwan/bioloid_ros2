@@ -82,18 +82,19 @@ Notes;
    ros2 launch bioloid_gazebo gazebo_cmdpos.launch.py
    ```
    the gazebo sim will then be launched.
+ 
+3. Press the "Start" button in the Gazebo Sim.
    
-3. In terminal 3,
+4. In terminal 3,
    ```bash
    cd ~/ros2_ws/src/bioloid_ros2/bioloid_demos/sim
-   ./test_cmdpos_mtn.py bow.mtn or l_forward_walk.lst [--feedback]
+   ./test_cmdpos_mtn.py bow.mtn or l_forward_walk.lst 
    ```
    the simulated robot will move according to motion selected and the .mtn/.lst are available in ~/bioloid_demos/motions folder.
-   --feedback option is to wait for each step of the motion to be closer to the goal position before executing the next step.
   
 Notes:
   Two limitations here for the Gazebo simulation:
-  i.  The motion execution is very slow and so --feedback option is added to safeguard the execution of a step before moving to the next step.
+  i.  The motion execution is very slow.
   ii. gravity is set to 0 and so the robot will float up.
       If it is set to gravity: -9.81 as usual, the robot will tumble easily.
       No easy tuning to find a gravity that would give balance so far.
@@ -112,6 +113,7 @@ Notes:
    ros2 launch bioloid_gazebo gazebo_ros2ctl.launch.py
    ```
    the gazebo sim will then be launched.
+   Also, need to press the "Start" button in Gazebo Sim quickly or the ros2 control bring-up would fail.
    
 3. In terminal 3,
    ```bash
