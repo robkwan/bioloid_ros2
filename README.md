@@ -1,4 +1,4 @@
-# ?? bioloid_ros2
+# bioloid_ros2
 ![Project Logo](path/to/logo.png)  
 *ROSification of Robotis Premium Type A as the final project ot robotics class*
 
@@ -7,36 +7,36 @@
 
 ---
 
-## ?? Table of Contents
+## Table of Contents
 1. [Features](#features)  
 2. [Installation](#installation)  
 3. [Usage](#usage)  
 
 ---
 
-## ? Features
+## Features
 - **Feature 1**: All the codes are for ROS2 Jazzy / Ubuntu 24.04.  
 - **Feature 2**: Running on Raspberry Pi 5 with ARM architecture but should be portable to x86_64 architecture for better performance.  
 
-## ? Installtion
+## Installtion
 1. Clone the repo:
-   '''bash
+   ```bash
    cd ~/ros2_ws/src
    git clone https://github.com/robkwan/bioloid_ros2.git
-   '''
+   ```
    
 2. Build the codes:
-   '''bash
+   ```bash
    cd ~/ros2_ws
    colcon build
-   '''
+   ```
    
 3. Set up the ROS environment variables:
-   '''bash
+   ```bash
    source install/setup.bash
-   '''
+   ```
 
-## ? Usage
+## Usage
 
 ### For Real Robotis Premium Type A Robot
 
@@ -46,22 +46,22 @@ Prerequisites:
 - The robot is power-up-ed already as U2D2 itself would not give power to the Dynamixel Servos.
   
 1. In terminal 1,
-   '''bash
+   ```bash
    ros2 launch bioloid_description rviz.launch
-   '''
+   ```
    the rviz2 will then be launched.
    
 2. In terminal 2.
-   '''bash
+   ```bash
    ros2 launch dynamixe_bringup dxl_bringup.launch.py
-   '''
+   ```
    the gazebo sim will then be launched.
    
 3. In terminal 3,
-   '''bash
+   ```bash
    cd ~/ros2_ws/src/bioloid_ros2/bioloid_demos/real
    ./test_motion.py bow.mtn or l_forward_walk.lst
-   ...
+   ```
    the real robot will move according to motion selected and the .mtn/.lst are available in ~/bioloid_demos/motions folder
    
 Notes;
