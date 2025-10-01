@@ -1,5 +1,5 @@
 # bioloid_ros2
-![Project Logo](path/to/logo.png)  
+
 *ROSification of Robotis Premium Type A as the final project ot robotics class*
 
 [![](https://github.com/robkwan/bioloid_ros2/)](https://github.com/robkwan/bioloid_ros2)  
