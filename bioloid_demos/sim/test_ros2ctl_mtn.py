@@ -335,7 +335,20 @@ def main():
     except Exception as e:
         print(f"Error: {e}")
     finally:
-        rclpy.shutdown()
+        # Proper cleanup sequence
+        if executor is not None:
+            executor.shutdown(timeout_sec=1.0)
+        
+        if executor_thread is not None and executor_thread.is_alive():
+            executor_thread.join(timeout=2.0)
+        
+        # Destroy the node before shutting down rclpy
+        if node is not None:
+            node.destroy_node()
+        
+        # Shutdown rclpy last
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':
