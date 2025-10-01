@@ -55,7 +55,7 @@ Prerequisites:
    ```bash
    ros2 launch dynamixe_bringup dxl_bringup.launch.py
    ```
-   the gazebo sim will then be launched.
+   the dynamixel ros2 control will then be launched.
    
 3. In terminal 3,
    ```bash
@@ -67,17 +67,83 @@ Prerequisites:
 Notes;
 - Unfortunately, sometimes not all the 18 motors can't be detected correctly
   but overall, it should still be functional ok.
+
    
 ### For Gazebo Sim (Harmonic) with cmd_pos topic
 
+1. In terminal 1,
+   ```bash
+   ros2 launch bioloid_description rviz_gazebo.launch
+   ```
+   the rviz2 will then be launched.
+   
+2. In terminal 2.
+   ```bash
+   ros2 launch bioloid_gazebo gazebo_cmdpos.launch.py
+   ```
+   the gazebo sim will then be launched.
+   
+3. In terminal 3,
+   ```bash
+   cd ~/ros2_ws/src/bioloid_ros2/bioloid_demos/sim
+   ./test_cmdpos_mtn.py bow.mtn or l_forward_walk.lst [--feedback]
+   ```
+   the simulated robot will move according to motion selected and the .mtn/.lst are available in ~/bioloid_demos/motions folder.
+   --feedback option is to wait for each step of the motion to be closer to the goal position before executing the next step.
+  
+Notes:
+  Two limitations here for the Gazebo simulation:
+  i.  The motion execution is very slow and so --feedback option is added to safeguard the execution of a step before moving to the next step.
+  ii. gravity is set to 0 and so the robot will float up.
+      If it is set to gravity: -9.81 as usual, the robot will tumble easily.
+      No easy tuning to find a gravity that would give balance so far.
 
-
+      
 ### For Gazebo Sim (Harmonic) with gz sim ros2 control
 
-
-
+1. In terminal 1,
+   ```bash
+   ros2 launch bioloid_description rviz_gazebo.launch
+   ```
+   the rviz2 will then be launched.
+   
+2. In terminal 2.
+   ```bash
+   ros2 launch bioloid_gazebo gazebo_ros2ctl.launch.py
+   ```
+   the gazebo sim will then be launched.
+   
+3. In terminal 3,
+   ```bash
+   cd ~/ros2_ws/src/bioloid_ros2/bioloid_demos/sim
+   ./test_ros2ctl_mtn.py bow.mtn or l_forward_walk.lst [--feedback]
+   ```
+   the simulated robot will move according to motion selected and the .mtn/.lst are available in ~/bioloid_demos/motions folder.
+   --feedback option is to wait for each step of the motion to be closer to the goal position before executing the next step.
+  
+Notes:
+  Two limitations here for the Gazebo simulation:
+  i.  The motion execution is very slow and so --feedback option is added to safeguard the execution of a step before moving to the next step.
+  ii. gravity is set to -9.81 and so the robot will tumble easily.
+      
 
 ### For Mujoco Simulator with mujoco_ros2_control
 
+1. In terminal 1,
+   ```bash
+   ros2 launch bioloid_mujoco mujoco_ros2ctl.launch.py
+   ```
+   the mujoco sim will then be launched.
+   
+3. In terminal 2,
+   ```bash
+   cd ~/ros2_ws/src/bioloid_ros2/bioloid_demos/sim
+   ./test_ros2ctl_mtn.py bow.mtn or l_forward_walk.lst [--feedback]
+   ```
+   the simulated robot will move according to motion selected and the .mtn/.lst are available in ~/bioloid_demos/motions folder.
+   --feedback option is to wait for each step of the motion to be closer to the goal position before executing the next step.
   
- 
+Notes:
+  Unlike the Gazebo sim, even though mujoco has the gravity set to -9.81, 
+  the robot would not tumble as it goes through the motion steps even though it can still be very slow.
+      
